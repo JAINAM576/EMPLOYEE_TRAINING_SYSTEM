@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+
+        .main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            /* filter: blur(1px); */
+            min-height: 100%;
+            /* background-color: gray; */
+            /* width: 50%; */
+            z-index: -1;
+        }
+
+        .btn {
+            margin: auto;
+            width: auto !important;
+        }
+
+        .main2 {
+
+            position: sticky;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* min-height: 100vh; */
+            bottom: 50%;
+            width: 100%;
+            height: 100%;
+            font-weight: bold;
+            display: none;
+        }
+
+        .box {
+            width: 40%;
+            background-color: white;
+            z-index: 1;
+            box-shadow: 2px 2px 2px rgba(255, 255, 255, 0.639);
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 5px 5px;
+            height: 45%;
+        }
+
+        .info {
+            padding: 10px 5px;
+        }
+        .h{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 class="h">Apply for Trainning</h1>
+    <div class="main" id="main">
+        <form class="row g-3">
+            <label>Center</label>
+            <select class="form-select" aria-label="Default select example" id="city">
+                <option selected value="-1">Select Location</option>
+                <option  value="Ahemdabad">ahemdabad</option>
+                <option value="Mehsana">Mehsana</option>
+                <option value="Rajkot">Rajkot</option>
+                <option value="Surat">Surat</option>
+                <option value="Mumbai">Mumbai</option>
+            </select>
+            <label>Subject:</label>
+            <select class="form-select" disabled aria-label="Default select example" id="subsubject">
+                <option selected value="-1">Open this select menu</option>
+                <option value="suboption1">t1</option>
+               
+            </select>
+            <label>Trainning Program:</label>
+            <select class="form-select" disabled aria-label="Default select example" id="subSelect">
+                <option selected value="-1">Open this select menu</option>
+                <option value="suboption1" >t1</option>
+            </select>
+            <label>Starting date:</label>
+            <select class="form-select" disabled aria-label="Default select example" id="subSelect1">
+                <option selected value="-1">Open this select menu</option>
+                <option value="suboption1" >2020-08-11</option>
+     
+            </select>
+            <label>Ending date:</label>
+            <select class="form-select" disabled aria-label="Default select example" id="subSelect2">
+                <option selected value="-1">Open this select menu</option>
+                <option value="suboption1" >2020-08-11</option>
+     
+            </select>
+            <button id="apply-btn" type="button" class="btn btn-danger">Apply</button>
+            <button type="button" id="info" class="btn btn-primary">Info</button>
+        </form>
+    </div>
+    <div class="main2" id="main2">
+        <div class="box">
+            <div class="info">
+
+                Options For center:<br>
+                Foundation :For Foundation U Can Select -- T1,T2,T3 Options For Trainning Programme
+                And d1,d2,d3 For Date Option And U can Select City from Cities
+                <hr>
+                <br>
+                Edp :For Edp U Can Select -- T4,T5,T6 Options For Trainning Programme
+                And d4,d5,d6 For Date Option And U can Select City from Cities Options
+                <br>
+                <hr>
+            </div>
+            <div class="feed">
+                Thank You For Visiting Our site .For any query U can Contact here--.
+
+                <hr>
+                <button class="btn btn-danger" id="exit">Exit</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+
+
+    const mainSelect = document.getElementById('mainSelect');
+    const subSelect = document.getElementById('subSelect');
+    const subsubject=document.getElementById("subsubject")
+
+    const subSelect1 = document.getElementById('subSelect1');
+    const subSelect2=document.getElementById('subSelect2')
+
+
+    const info = document.getElementById('info')
+    const main = document.getElementById('main')
+    const main2 = document.getElementById('main2')
+    const exit = document.getElementById('exit')
+    let city=document.getElementById("city")
+
+
+    city.addEventListener("change",(e)=>{
+        console.log(e.target.value," values")
+        if(e.target.value!=-1){
+
+let lw=e.target.value;
+lw=lw.toLowerCase()
+console.log(lw)
+
+
+let total_sub="<option selected value=-1>Open this select menu</option>"
+
+$.post("/employee/subject",{lw},
+function (data, status) {
+            
+            data.forEach((element)=>{
+
+            total_sub+=`<option value="${element.training_subject}"">${element.training_subject}</option>`
+        })
+        subsubject.innerHTML=total_sub
+          // window.location.assign('/employee/signin')
+          subsubject.disabled=false
+          }).DONE;
+
+        }
+        else{
+            subsubject.disabled=true
+        }
+    })
+
+
+    subsubject.addEventListener("change",(e)=>{
+        console.log(e.target.value," values")
+        if(e.target.value!=-1){
+
+let lw=e.target.value;
+lw=lw.toLowerCase()
+console.log(lw)
+
+let total_sub="<option selected value=-1>Open this select menu</option>"
+
+
+$.post("/employee/trainning_name",{lw},
+function (data, status) {
+            console.log(data,"res")
+            let total_sub="<option selected value=-1>Open this select menu</option>"
+            data.forEach((element)=>{
+
+            total_sub+=`<option value=${element.training}>${element.training}</option>`
+        })
+        subSelect.innerHTML=total_sub
+          // window.location.assign('/employee/signin')
+          }).DONE;
+
+
+    subSelect.disabled=false
+        }
+        else{
+            subSelect.disabled=true
+        }
+    })
+
+
+    subSelect.addEventListener("change",(e)=>{
+        console.log(e.target.value," values")
+        if(e.target.value!=-1){
+
+let lw=e.target.value;
+lw=lw.toLowerCase()
+console.log(lw)
+
+let total_sub="<option selected value=-1>Open this select menu</option>"
+
+
+let val1=city.value.toLowerCase();
+
+let val3=subsubject.value.toLowerCase();
+$.post("/employee/date",{lw,val1,val3},
+function (data, status) {
+            console.log(data,"res")
+            let total_sub;
+            let total_sub1;
+            data.forEach((element)=>{
+            
+            total_sub+=`<option value=${element.start_date.slice(0,10)}>${element.start_date.slice(0,10)}</option>`
+            total_sub1+=`<option value=${element.end_date.slice(0,10)}>${element.end_date.slice(0,10)}</option>`
+        })
+        subSelect1.innerHTML=total_sub
+        subSelect2.innerHTML=total_sub1
+          // window.location.assign('/employee/signin')
+          }).DONE;
+
+
+   
+        }
+        else{
+            total_sub+=`<option  selected value=-1 >Open this select menu</option>`
+            subSelect1.innerHTML=total_sub
+            subSelect2.innerHTML=total_sub
+            subSelect1.disabled=true
+            subSelect2.disabled=true
+        }
+    })
+
+
+
+
+    info.addEventListener('click', () => {
+        main.style.filter = 'blur(1px)'
+        main2.style.display = 'flex'
+    })
+    exit.addEventListener('click', (e) => {
+        main.style.filter = 'blur(0px)'
+        main2.style.display = 'none'
+    })
+
+    $(document).ready(function () {
+        $("#apply-btn").click(function () {
+            const center = $("#city").val()
+            const subject = $("#subsubject").val()
+            const training = $('#subSelect').val()
+            const staring_date = $('#subSelect1').val()
+            const ending_date=$('#subSelect2').val()
+            if(center!=-1 && city!=-1 && subject!=-1 && training!=-1 && staring_date!=-1 && ending_date!=-1){
+
+    $.post("/employee/req-apply",
+    {
+                    getUser: getCookie("user"),
+                    center: $("#city").val(),
+                    subject:$('#subsubject').val(),
+                    training: $('#subSelect').val(),
+                    starting_date: $('#subSelect1').val(),
+                    ending_date: $('#subSelect2').val(),
+
+                },
+                function (data, status) {
+                    if(data==1){
+                        alert("Request Successfully")
+                    }
+                    else if(data==2){
+                        alert("Request is already there")
+                    }
+                }).done();
+            }
+            });
+    });
+    function getCookie(cname) {
+        console.log(document.cookie," yummy")
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+</html>
