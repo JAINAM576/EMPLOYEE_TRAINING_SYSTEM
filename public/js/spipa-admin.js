@@ -68,7 +68,7 @@ $.get(`/spipa-dept-req`, (data, status) => {
             { data: 'dept_req_date', title: 'Req Date' },
             {
                 data: 'dept_req_id', render: (data, type, row, meta) => {
-                    return `<button class='btn btn-danger btnDelete' onclick="reject(` + data + `)">reject</button><button class='btnAccept btn btn-primary' onclick="accept(` + data + `)">accept</button>`
+                    return `<button class='btn btn-danger btnDelete' onclick="reject_d(` + data + `)">reject</button><button class='btnAccept btn btn-primary' onclick="accept_d(` + data + `)">accept</button>`
                 }, title: 'Accept/Reject'
             }
         ]
@@ -90,14 +90,14 @@ $(document).ready(function () {
     });
 });
 //make changes in daatabase
-function reject(dept_req_id) {
+function reject_d(dept_req_id) {
 
     console.log("reject:" + dept_req_id);
     $.get(`/dept/reject/${dept_req_id}`, (data, status) => {
 
     });
 }
-function accept(dept_req_id) {
+function accept_d(dept_req_id) {
     console.log("accept:" + dept_req_id);
     $.get(`/dept/accept/${dept_req_id}`, (data, status) => {
     });

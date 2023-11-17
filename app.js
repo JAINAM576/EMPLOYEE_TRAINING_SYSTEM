@@ -13,12 +13,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('dotenv').config();
 
 
+// var pool = mysql.createConnection({
+//   host: process.env.DB_HOST,
+//   port:process.env.port,
+//   user: process.env.DB_USERNAME,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_DBNAME,
+//   dateStrings: true
+// });
 var pool = mysql.createConnection({
-  host: process.env.DB_HOST,
-  port:process.env.port,
-  user: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DBNAME,
+  host: "localhost",
+  port:3307,
+  user: "root",
+  password: "jainams0703@h",
+  database: "ps008001-db",
   dateStrings: true
 });
 
@@ -680,7 +688,7 @@ app.get('/remove-dept/:id', (req, res) => {
           res.status(500).send(2);
       } else {
 
-        if(results[0]!=null){
+        if(results[0]!=undefined){
           res.status(200).json(1);
         }
         else{
@@ -721,13 +729,14 @@ app.post("/spipa/test", (req, res) => {
   }
 });
 app.post("/spipa/login", (req, res) => {
-  const { login_id, login_password } = req.body;
+  const { login_id, login_password,login_role } = req.body;
   const userId = login_id;
   const userPassword = login_password;
+  const role=login_role 
   if(userPassword && userId){
     pool.query(
-      "SELECT spipa_password FROM spipa_emp where spipa_emp_id=(?)",
-      [userId],
+      "SELECT spipa_password FROM spipa_emp where spipa_emp_id=(?) and spipa_emp_role=(?)",
+      [userId,role],
       (error, results) => {
         if (error) {
           console.error(error)
