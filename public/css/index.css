@@ -105,6 +105,40 @@ table{
     overflow-x: auto;
     padding-left: 30px;
 }
+.charts{
+    padding: 0 50px !important;
+}
+.charts>div{
+    margin: 50px 0;
+}
+#training-info{
+    padding-left: 40px !important;
+    margin-bottom: 100px;
+}
+#info-box{
+    margin: 20px 0;
+    padding: 20px 40px;
+    background-color:#FFF6F7 ;
+}
+.info-subject{
+    font-size: 2rem;
+    font-weight: 700;
+}
+.info-title{
+    font-size: 1.5rem;
+    position: relative;
+    margin-left: 20px;
+}
+.info-title::before{
+    height: 15px;
+    width: 15px;
+    border-radius: 100%;
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: -20px;
+    background-color: var(--ssip-secondary);
+}
 @media screen and (max-width:1000px) {
     body{
         padding-top: 70px;
@@ -129,5 +163,8 @@ table{
     }
     #admin-panel>div{
         padding-left: 20px;
+    }
+    .charts{
+        padding: 0 !important;
     }
 }

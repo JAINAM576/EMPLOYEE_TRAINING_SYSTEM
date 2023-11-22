@@ -68,3 +68,24 @@ $.get(`./emp-exam/${user}`, (data, status) => {
 
 
 });
+
+$.get(`/employee/status-1/${user}`, (data, status)=>{
+    if(data){
+        $("#status").html("->Status");
+        for (let x = 0; x < data.length; x++) {
+            $('#status-table').append(
+                "<tr><td>"+data[x].req_id+"</td><td>"+data[x].emp_training+"</td><td>"+data[x].emp_training_subject+"</td><td>Department</td></tr>"
+            );
+        }
+    }   
+});
+$.get(`/employee/status-2/${user}`, (data, status)=>{
+    if(data){
+        $("#status").html("->Status");
+        for (let x = 0; x < data.length; x++) {
+            $('#status-table').append(
+                "<tr><td>"+data[x].req_id+"</td><td>"+data[x].emp_training+"</td><td>"+data[x].emp_training_subject+"</td><td>Spipa</td></tr>"
+            );
+        }
+    }   
+});

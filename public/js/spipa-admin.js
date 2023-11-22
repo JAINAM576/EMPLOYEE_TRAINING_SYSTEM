@@ -28,6 +28,7 @@ $.ajax({
     contentType: "application/json; charset=utf-8",
     traditional: true,
     success: function (data) {
+        console.log(data)
         if (data==2) {
             alert("welcome " + getCookie("userspipa"))
         }
@@ -184,16 +185,30 @@ $(document).ready(function () {
 //add training
 $(document).ready(function () {
     $("#btn-add-training").click(function () {
+
+
         const training = $("#training").val();
         const training_subject = $("#training_subject").val();
         const start_date = $("#start_date").val();
         const end_date = $("#end_date").val();
+        const cordinator_id = $("#sel1").val();
+        const training_cap = $("#training_cap").val();
+console.log(training,typeof(training)," yra")
+if(training.length==0 || training_subject.length==0 || start_date.length==0 || end_date.length==0 || cordinator_id.length==0 || training_cap.length==0  ){
+    alert("FILL ALL THE DETAILS");
+    return ;
+}
         const reqBody = {
             training:training,
             training_subject:training_subject,
             start_date:start_date,
             end_date:end_date
         };
+        const reqBody1={
+            training:training,
+            cordinator_id:cordinator_id,
+            training_cap:training_cap
+        }
         console.log(reqBody);
         $.ajax({
             type: 'post',
@@ -205,7 +220,34 @@ $(document).ready(function () {
                 alert("added successfully")
             }
         });
+        $.ajax({
+            type: 'post',
+            url: `/add-cordinator/relation`,
+            data: JSON.stringify(reqBody1),
+            contentType: "application/json; charset=utf-8",
+            traditional: true,
+            success: function (data) {
+            console.log("sucess ")
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: `/add-cordinator/send-mail`,
+            data: JSON.stringify(reqBody1),
+            contentType: "application/json; charset=utf-8",
+            traditional: true,
+            success: function (data) {
+               console.log("sucess")
+            }
+        });
 
 
     });
 });
+
+
+// $.post("/employee/cordinators",[spipaname],(data,error)=>{
+
+// console.log(data);
+
+// }).DONE;
