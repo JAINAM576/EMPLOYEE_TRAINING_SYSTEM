@@ -401,17 +401,20 @@ $(document).ready(function () {
 
         })
         if (!check) {
-            $.get('/excel/emp_exam', (data, error) => {
-                console.log(data, "exvel data")
-                if (data == 1 && getCookie("check")=="1") {
-                    alert("File is added sucessfully to  download folder")
-                }
-                if(getCookie("check")=="0"){
-                    alert("File is added sucessfully to  download folder.\nIf excel file finds its empty means there is nothin in table ")
-                }
-                // alert("downloaded sucessfully")
+            var train=$("#sel1").val();
+            var sub=$("#sel2").val();
+            window.open(`/excel/emp_exam/${train}/${sub}`, '_blank')
+            // $.get('/excel/emp_exam', (data, error) => {
+            //     console.log(data, "exvel data")
+            //     if (data == 1 && getCookie("check")=="1") {
+            //         alert("File is added sucessfully to  download folder")
+            //     }
+            //     if(getCookie("check")=="0"){
+            //         alert("File is added sucessfully to  download folder.\nIf excel file finds its empty means there is nothin in table ")
+            //     }
+            //     // alert("downloaded sucessfully")
 
-            })
+            // })
         }
         console.log(check, " check hua")
     })
@@ -596,24 +599,32 @@ function check(){
                 absent(data[i].emp_id,data[i].emp_name,utc,data[i].emp_training_subject,data[i].emp_training)
             }
         }
+        window.open(`/attendence/excel/${training1}/${subject1}/${utc}`, '_blank');
     });
-    alert("Attendence submitted");
-    $.get(`/attendence/excel/${training1}/${subject1}`,(data,status)=>{
-        
-    })
+
+    
+    
 }
 
 function present(id, name, utc, subject, training) {
   $.get(
     `/attendence/present/${id}/${name}/${utc}/${subject}/${training}`,
-    (data, status) => {}
+    (data, status) => {
+        if(data==0){
+            alert("You have already selected this date")
+        }
+    }
   );
   
 }
 function absent(id, name, utc, subject, training) {
   $.get(
     `/attendence/absent/${id}/${name}/${utc}/${subject}/${training}`,
-    (data, status) => {}
+    (data, status) => {
+        if(data==0){
+            alert("You have already selected this date")
+        }
+    }
   );
 }
 

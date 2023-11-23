@@ -713,7 +713,7 @@ app.get("/accept/:id", (req, res) => {
 app.get("/all/emp-training/:id", (req, res) => {
   pool.query("SELECT * FROM emp_training", (error, results) => {
     const current_user = req.params.id;
-    pool.query('SELECT * from emp_training inner join (SELECT emp_id FROM employee where emp_operator=(?)) e1 on emp_training.emp_id=e1.emp_id', [current_user], (error, results) => {
+    pool.query('SELECT * from emp_training inner join (SELECT emp_id FROM employee where emp_operator=(?) and status=1) e1 on emp_training.emp_id=e1.emp_id', [current_user], (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).send('Error retrieving company');
@@ -726,7 +726,7 @@ app.get("/all/emp-training/:id", (req, res) => {
 
 app.get("/all/emp-exam/:id", (req, res) => {
   const current_user = req.params.id;
-  pool.query("SELECT * FROM emp_exam inner join (SELECT emp_id FROM employee where emp_operator=(?)) e1 on emp_exam.emp_id=e1.emp_id", [current_user], (error, results) => {
+  pool.query("SELECT * FROM emp_exam_result inner join (SELECT emp_id FROM employee where emp_operator=(?)) e1 on emp_exam_result.emp_id=e1.emp_id", [current_user], (error, results) => {
     if (error) {
       console.error(error);
       res.status(500).send("Error retrieving company");
@@ -1675,6 +1675,7 @@ app.post('/spipa-training-req/:id', (req, res) => {
     }
   })
 })
+
 app.post('/adding_marks', (req, res) => {
   let { mark, emp_id } = req.body
   mark = Number(mark)
@@ -1690,24 +1691,10 @@ app.post('/adding_marks', (req, res) => {
           mark,
           100
         ], (error, result) => {
-
-          if (error) {
-            console.log(error, "error")
-            res.status(200).json(0)
-          }
-          else {
-            res.status(200).json(1)
-
-          }
-
         })
-
       })
     } else {
-
-
-      res.status(500).json(0)
-
+      res.status(500).json(0);
     }
   })
 })
@@ -1752,31 +1739,29 @@ app.post("/spipa-training-req-subject", (req, res) => {
 
 
 //download excel from table
-app.get('/excel/emp_exam', (req, res) => {
-  pool.query('SELECT * FROM  emp_exam_result', (error, results) => {
-    if (error) throw error;
-    var data = [];
-    var headers = ["Employee_id", "Training", "Subject", "Marks", "Out_Of"];
-    data.push(headers)
-    results.forEach(row => {
-      data.push([row["emp_id"], row["emp_training"], row["emp_subject"], row["marks"], row["out_of"]]);
+app.get("/excel/emp_exam/:id/:id2", async (req, res) => {
+  const train=req.params.id;
+  const sub=req.params.id2;
+  try {
+    pool.query('SELECT * FROM  emp_exam_result where emp_training=(?) and emp_subject=(?)',[train,sub], (error, result) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json(0);
+      } else {
+        const heading = [["Employee_id", "Training", "Subject", "Marks", "Out_Of"]]
+        const workbook = XLSX.utils.book_new()
+        const worksheet = XLSX.utils.json_to_sheet(result)
+        XLSX.utils.sheet_add_aoa(worksheet, heading)
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'employee')
+        const buffer = XLSX.write(workbook, { booktype: 'xlsx', type: 'buffer' })
+        res.attachment("result.xlsx")
+        return res.send(buffer)
+      }
     });
-
-    // (C2) WRITE TO EXCEL FILE
-    var worksheet = XLSX.utils.aoa_to_sheet(data),
-      workbook = XLSX.utils.book_new();
-    const downloadFolder = 'downloads';
-    const fileName = 'result.xlsx';
-    const downloadPath = path.join(__dirname, fileName);
-
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
-
-    XLSX.writeFile(workbook, downloadPath);
-    res.json(1);
-
-  });
+  } catch (error) {
+    console.log(error)
+  }
 });
-
 
 //result showing
 
@@ -2072,9 +2057,9 @@ app.get("/attendence/present/:id/:name/:utc/:subject/:training", (req, res) => {
     (error, results) => {
       if (error) {
         console.error(error);
-        res.status(500).send("Error insert");
+        res.status(200).json(0);
       } else {
-        res.status(200).send("added in dept");
+        res.status(200).json(1);
       }
     }
   );
@@ -2094,42 +2079,43 @@ app.get("/attendence/absent/:id/:name/:utc/:subject/:training", (req, res) => {
     (error, results) => {
       if (error) {
         console.error(error);
-        res.status(500).send("Error insert");
+        res.status(200).json(0);
       } else {
-        res.status(200).send("added in dept");
+        res.status(200).json(1);
       }
     }
   );
 });
 
 
-app.get('/attendence/excel/:training/:subject', (req, res) => {
-  let train=req.params.training
-  let sub=req.params.subject
-  pool.query('SELECT emp_id , emp_name , emp_training,emp_subject,emp_date,pa  FROM  attendence where emp_training=(?) and emp_subject=(?) ',[train,sub], (error, results) => {
-    if (error) throw error;
-    var data = [];
-    var headers = ["Employee_id", "Name", "Training", "Subject", "Date", "Attendence Status"];
-    data.push(headers);
-    results.forEach(row => {
-      data.push([row["emp_id"],row["emp_name"], row["emp_training"], row["emp_subject"], row["emp_date"], row["pa"]]);
+app.get('/attendence/excel/:id/:id2/:id3', (req, res) => {
+  const train=req.params.id;
+  const sub=req.params.id2;
+  const date=req.params.id3;
+  console.log(train+sub+date)
+  try {
+    pool.query('SELECT * FROM attendence where emp_training=(?) and emp_subject=(?) and emp_date=(?)',[train,sub,date], (error, result) => {
+      if (error) {
+        console.error(error);
+        res.status(200).json(0);
+      } else {
+        
+        const heading = [["Employee_id", "Name" ,"Training", "Subject", "Date", "P/A"]]
+        const workbook = XLSX.utils.book_new()
+        const worksheet = XLSX.utils.json_to_sheet(result)
+        XLSX.utils.sheet_add_aoa(worksheet, heading)
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'employee')
+        const buffer = XLSX.write(workbook, { booktype: 'xlsx', type: 'buffer' })
+        res.attachment("result.xlsx")
+        return res.send(buffer)
+      }
     });
-    console.log(data,"in excel")
-
-    // (C2) WRITE TO EXCEL FILE
-    var worksheet = XLSX.utils.aoa_to_sheet(data),
-      workbook = XLSX.utils.book_new();
-    const downloadFolder = 'downloads';
-    const fileName = 'attendence_emp.xlsx';
-    const downloadPath = path.join(__dirname, fileName);
-
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
-
-    XLSX.writeFile(workbook, downloadPath);
-    res.json(1);
+  } catch (error) {
+    console.log(error)
+  }
 
   });
-});
+
 
 
 const PORT = 3000 || process.env.PORT;

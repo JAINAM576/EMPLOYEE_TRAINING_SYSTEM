@@ -63,8 +63,6 @@ $.get(`./emp-exam/${user}`, (data, status) => {
             { data: 'emp_training', title: 'Training' },
             { data: 'marks', title: 'Marks' },
             { data: 'out_of', title: 'OUT_OF' },
-           
-
         ]
     });
 
@@ -73,7 +71,12 @@ $.get(`./emp-exam/${user}`, (data, status) => {
 
 $.get(`/employee/status-1/${user}`, (data, status)=>{
     if(data){
-        $("#status").html("->Status");
+        $("#status").html("->Status");$("#status-heading").html(`<tr>
+        <th>Req Id</th>
+        <th>Training</th>
+        <th>Subject</th>
+        <th>Status</th>
+      </tr>`);
         for (let x = 0; x < data.length; x++) {
             $('#status-table').append(
                 "<tr><td>"+data[x].req_id+"</td><td>"+data[x].emp_training+"</td><td>"+data[x].emp_training_subject+"</td><td>Department</td></tr>"
@@ -84,6 +87,12 @@ $.get(`/employee/status-1/${user}`, (data, status)=>{
 $.get(`/employee/status-2/${user}`, (data, status)=>{
     if(data){
         $("#status").html("->Status");
+        $("#status-heading").html(`<tr>
+        <th>Req Id</th>
+        <th>Training</th>
+        <th>Subject</th>
+        <th>Status</th>
+      </tr>`);
         for (let x = 0; x < data.length; x++) {
             $('#status-table').append(
                 "<tr><td>"+data[x].req_id+"</td><td>"+data[x].emp_training+"</td><td>"+data[x].emp_training_subject+"</td><td>Spipa</td></tr>"

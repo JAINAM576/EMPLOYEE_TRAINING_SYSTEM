@@ -308,8 +308,13 @@ return ;
                     sel1.innerHTML = j;
                     let arr1=[]
                     j = `<option selected value=-1> Select Subject</option>`
+                    let arr2=[]
                     data.forEach(element => {
-                        j += `<option value=${element.emp_training_subject}>${element.emp_training_subject}</option>`
+                        
+                        if(arr2.includes(element.emp_training_subject)==false){
+                            j += `<option value=${element.emp_training_subject}>${element.emp_training_subject}</option>`
+                            arr2.push(element.emp_training_subject)
+                        }
                     })
                     sel2.innerHTML = j
                     sel1.disabled=false
