@@ -602,14 +602,22 @@ function check(){
 function present(id, name, utc, subject, training) {
   $.get(
     `/attendence/present/${id}/${name}/${utc}/${subject}/${training}`,
-    (data, status) => {}
+    (data, status) => {
+        if(data==0){
+            alert("You have already selected this date")
+        }
+    }
   );
   
 }
 function absent(id, name, utc, subject, training) {
   $.get(
     `/attendence/absent/${id}/${name}/${utc}/${subject}/${training}`,
-    (data, status) => {}
+    (data, status) => {
+        if(data==0){
+            alert("You have already selected this date")
+        }
+    }
   );
 }
 

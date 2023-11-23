@@ -1685,32 +1685,6 @@ app.post("/spipa-training-req-subject", (req, res) => {
 
 
 //download excel from table
-app.get('/excel/emp_exam2', (req, res) => {
-  pool.query('SELECT * FROM  emp_exam_result', (error, results) => {
-    if (error) throw error;
-    var data = [];
-    var headers = ["Employee_id", "Training", "Subject", "Marks", "Out_Of"];
-    data.push(headers)
-    results.forEach(row => {
-      data.push([row["emp_id"], row["emp_training"], row["emp_subject"], row["marks"], row["out_of"]]);
-    });
-
-    // (C2) WRITE TO EXCEL FILE
-    var worksheet = XLSX.utils.aoa_to_sheet(data),
-      workbook = XLSX.utils.book_new();
-    const downloadFolder = 'downloads';
-    const fileName = 'result.xlsx';
-    const downloadPath = path.join(__dirname, fileName);
-
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
-
-    XLSX.writeFile(workbook, downloadPath);
-    res.json(1);
-
-  });
-});
-
-
 app.get("/excel/emp_exam/:id/:id2", async (req, res) => {
   const train=req.params.id;
   const sub=req.params.id2;
@@ -2029,9 +2003,9 @@ app.get("/attendence/present/:id/:name/:utc/:subject/:training", (req, res) => {
     (error, results) => {
       if (error) {
         console.error(error);
-        res.status(500).send("Error insert");
+        res.status(200).json(0);
       } else {
-        res.status(200).send("added in dept");
+        res.status(200).json(1);
       }
     }
   );
@@ -2051,9 +2025,9 @@ app.get("/attendence/absent/:id/:name/:utc/:subject/:training", (req, res) => {
     (error, results) => {
       if (error) {
         console.error(error);
-        res.status(500).send("Error insert");
+        res.status(200).json(0);
       } else {
-        res.status(200).send("added in dept");
+        res.status(200).json(1);
       }
     }
   );
@@ -2069,7 +2043,7 @@ app.get('/attendence/excel/:id/:id2/:id3', (req, res) => {
     pool.query('SELECT * FROM attendence where emp_training=(?) and emp_subject=(?) and emp_date=(?)',[train,sub,date], (error, result) => {
       if (error) {
         console.error(error);
-        res.status(200).json("same date is already");
+        res.status(200).json(0);
       } else {
         
         const heading = [["Employee_id", "Name" ,"Training", "Subject", "Date", "P/A"]]
