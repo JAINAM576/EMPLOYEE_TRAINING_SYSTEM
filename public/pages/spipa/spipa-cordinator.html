@@ -105,7 +105,7 @@
                 </div>
                 <div class="col-12">
                     <button type="button" class="btn btn-outline-danger result_op "
-                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp">Add Attendence</button>
+                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp2">Add Attendence</button>
                 </div>
             </div>
 
@@ -187,7 +187,7 @@
                             <li class="nav-item">
                          
                                     <button type="button" class="btn_in result_op "
-                                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp">Add Attendence</button>
+                                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp3">Add Attendence</button>
                                 
             
                             </li>
@@ -199,7 +199,7 @@
 
 
 
-            <p class="ssip-title">
+            <p class="ssip-title" id="listing">
                 Employee list :
 
             </p>
@@ -355,8 +355,12 @@
             $.post(`/spipa-training-req/${e.target.value}`, (data, status) => {
                 let j=`<option selected value="-1" >Quiz Subject Name</option>`
         console.log("done")
+        let arr=[]
         data.forEach((element)=>{
-            j+=`<option  value=${element.emp_training_subject} >${element.emp_training_subject}</option>`
+            if(arr.includes(element.emp_training_subject)==false){
+                j+=`<option  value=${element.emp_training_subject} >${element.emp_training_subject}</option>`
+arr.push(element.emp_training_subject)
+            }
         })
         training_subject_info.innerHTML=j
             })
@@ -374,8 +378,13 @@
             $.post(`/spipa-training-req/${e.target.value}`, (data, status) => {
                 let j=`<option selected value="-1" >Quiz Subject Name</option>`
         console.log("done")
+        let arr=[]
+        
         data.forEach((element)=>{
-            j+=`<option  value=${element.emp_training_subject} >${element.emp_training_subject}</option>`
+            if(arr.includes(element.emp_training_subject)==false){
+                j+=`<option  value=${element.emp_training_subject} >${element.emp_training_subject}</option>`
+arr.push(element.emp_training_subject)
+            }
         })
         attendance_sub.innerHTML=j
             })
@@ -394,8 +403,11 @@
 
 
 
-    document.getElementById("exam_type").addEventListener('change', () => {
-        deptreqtable1.style.display = "block"
+    document.getElementById("exam_type").addEventListener('change', (e) => {
+        if(e.target.value!=-1){
+
+            document.getElementById('listing').innerText="Add Result"
+            deptreqtable1.style.display = "block"
         let j = '<option  value=-1>Select training</option>'
         traing_arr.forEach((element, index) => {
             if (index == 0) {
@@ -410,17 +422,22 @@
 
         deptreqtable.style.display = "none";
 
+
+    }
 
     })
-    document.getElementById("exam_type1").addEventListener('change', () => {
-        deptreqtable1.style.display = "block"
+    document.getElementById("exam_type1").addEventListener('change', (e) => {
+        if(e.target.value!=-1){
+
+            document.getElementById('listing').innerText="Add Result"
+            deptreqtable1.style.display = "block"
         let j = '<option  value=-1>Select training</option>'
         traing_arr.forEach((element, index) => {
             if (index == 0) {
 
                 j += `<option selected  value=${element.training_name}>${element.training_name}</option>`
             } else {
-
+                
                 j += `<option   value=${element.training_name}>${element.training_name}</option>`
             }
         });
@@ -429,24 +446,61 @@
         deptreqtable.style.display = "none";
 
 
+
+    }
     })
     document.getElementById("see_emp").addEventListener("click", () => {
         try {
-
+            document.getElementById('see-req').style.display='block'
+            document.getElementById("exam_type1").value=-1
+            document.getElementById("exam_type").value=-1
             deptreqtable.style.display = "block";
             deptreqtable1.style.display = "none";
             document.getElementById("dept-req-table1").innerHTML = "";
+            document.getElementById('listing').innerText="Emloyee list"
         } catch (error) {
 
         }
 
     })
-    document.getElementById("see_emp1").addEventListener("click", () => {
+    document.getElementById("see_emp2").addEventListener("click", () => {
         try {
-
+            document.getElementById('see-req').style.display='block'
+            document.getElementById("exam_type1").value=-1
+            document.getElementById("exam_type").value=-1
             deptreqtable.style.display = "block";
             deptreqtable1.style.display = "none";
             document.getElementById("dept-req-table1").innerHTML = "";
+            document.getElementById('listing').innerText="Emloyee list"
+        } catch (error) {
+
+        }
+
+    })
+    document.getElementById("see_emp3").addEventListener("click", () => {
+        try {
+            document.getElementById('see-req').style.display='block'
+            document.getElementById("exam_type1").value=-1
+            document.getElementById("exam_type").value=-1
+            deptreqtable.style.display = "block";
+            deptreqtable1.style.display = "none";
+            document.getElementById("dept-req-table1").innerHTML = "";
+            document.getElementById('listing').innerText="Emloyee list"
+        } catch (error) {
+
+        }
+
+    })
+    
+    document.getElementById("see_emp1").addEventListener("click", () => {
+        try {
+            document.getElementById('see-req').style.display='block'
+            document.getElementById("exam_type1").value=-1
+            document.getElementById("exam_type").value=-1
+            deptreqtable.style.display = "block";
+            deptreqtable1.style.display = "none";
+            document.getElementById("dept-req-table1").innerHTML = "";
+            document.getElementById('listing').innerText="Emloyee list"
         } catch (error) {
 
         }

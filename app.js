@@ -19,7 +19,7 @@ require('dotenv').config();
 
 var pool = mysql.createConnection({
   host: process.env.DB_HOST,
-  port:process.env.port,
+  port:process.env.port1,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DBNAME,
@@ -223,7 +223,7 @@ app.get("/emp-training/:id", (req, res) => {
 app.get("/emp-exam/:id", (req, res) => {
   const current_user = req.params.id;
   pool.query(
-    "SELECT * FROM emp_exam where emp_id=(?)",
+    "SELECT * FROM emp_exam_result where emp_id=(?)",
     [current_user],
     (error, results) => {
       if (error) {
@@ -1054,7 +1054,60 @@ app.post("/spipa/signin", (req, res) => {
         employeeDetail.email,
         employeeDetail.contact,
         employeeDetail.pass,
-      ]
+      ],(error,result)=>{
+        if(!error){
+          pool.query("select spipa_emp_id from spipa_emp where spipa_emp_role='cordinator' order by spipa_emp_id desc",(error,result1)=>{
+            if(!error){
+
+              async function send(to_mail, message, subject, email) {
+                const transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "jainamsanghavi008@gmail.com",
+                pass: "wmcnnvjipuyqawpf",
+              },
+            });
+            const mailoptions = {
+              from: "jainamsanghavi008@gmail.com",
+              to: to_mail,
+    
+              html: email,
+              subject: subject,
+            };
+            try {
+              const result = await transporter.sendMail(mailoptions);
+              console.log("success");
+            } catch (error) {
+    
+              console.log("error in spipa sigin ", error);
+            }
+          }
+          send(
+            email,
+           '',
+            "Regarding Spipa signin ",
+            `<h3>Hello </h3> 
+           
+            <hr>
+            Your employee id is ${result1[0].spipa_emp_id}.
+            Password: ${employeeDetail.pass}
+
+            <hr>
+            Spipa admin will add training for You untill u can't login into your account.
+
+            <div>Thanks For Registartion.</div>
+
+            <hr>
+            
+            <div>Best regards.</div>
+            <hr>
+            
+            `,
+            );
+          }
+        })
+          }
+        }
     );
     res.sendFile(__dirname + "/public/pages/spipa/cordinator_message.html");
   }
@@ -2079,7 +2132,7 @@ app.get('/attendence/excel/:training/:subject', (req, res) => {
 });
 
 
-const PORT = 3000;
+const PORT = 3000 || process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server started on ${PORT} `);
 });

@@ -297,10 +297,16 @@ return ;
                 } 
                 else {
                     let j = `<option selected value=-1> Select training</option>`
+                    let arr=[]
                     data.forEach(element => {
-                        j += `<option value=${element.emp_training}>${element.emp_training}</option>`
+                        if(arr.includes(element.emp_training)==false){
+
+                            j += `<option value=${element.emp_training}>${element.emp_training}</option>`
+                            arr.push(element.emp_training);
+                        }
                     })
                     sel1.innerHTML = j;
+                    let arr1=[]
                     j = `<option selected value=-1> Select Subject</option>`
                     data.forEach(element => {
                         j += `<option value=${element.emp_training_subject}>${element.emp_training_subject}</option>`

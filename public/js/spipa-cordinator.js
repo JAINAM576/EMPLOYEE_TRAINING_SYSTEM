@@ -100,8 +100,15 @@ $(document).ready(function () {
 
                     let sel2 = document.getElementById('sel2')
                     let j = `<option selected value=-1>Select subject</option>`;
+                    let arr=[]
+                 
                     data.forEach(element => {
-                        j += `<option value=${element.emp_training_subject}>${element.emp_training_subject}</option>`;
+                        if(arr.includes(element.emp_training_subject)==false){
+
+                            arr.push(element.emp_training_subject)
+    
+                            j += `<option value=${element.emp_training_subject}>${element.emp_training_subject}</option>`;
+                        }
                     }
                     )
                     sel2.innerHTML = j;
