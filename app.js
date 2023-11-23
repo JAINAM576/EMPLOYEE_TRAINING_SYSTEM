@@ -222,7 +222,7 @@ app.get("/emp-training/:id", (req, res) => {
 app.get("/emp-exam/:id", (req, res) => {
   const current_user = req.params.id;
   pool.query(
-    "SELECT * FROM emp_exam where emp_id=(?)",
+    "SELECT * FROM emp_exam_result where emp_id=(?)",
     [current_user],
     (error, results) => {
       if (error) {
@@ -712,7 +712,7 @@ app.get("/accept/:id", (req, res) => {
 app.get("/all/emp-training/:id", (req, res) => {
   pool.query("SELECT * FROM emp_training", (error, results) => {
     const current_user = req.params.id;
-    pool.query('SELECT * from emp_training inner join (SELECT emp_id FROM employee where emp_operator=(?)) e1 on emp_training.emp_id=e1.emp_id', [current_user], (error, results) => {
+    pool.query('SELECT * from emp_training inner join (SELECT emp_id FROM employee where emp_operator=(?) and status=1) e1 on emp_training.emp_id=e1.emp_id', [current_user], (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).send('Error retrieving company');
@@ -725,7 +725,7 @@ app.get("/all/emp-training/:id", (req, res) => {
 
 app.get("/all/emp-exam/:id", (req, res) => {
   const current_user = req.params.id;
-  pool.query("SELECT * FROM emp_exam inner join (SELECT emp_id FROM employee where emp_operator=(?)) e1 on emp_exam.emp_id=e1.emp_id", [current_user], (error, results) => {
+  pool.query("SELECT * FROM emp_exam_result inner join (SELECT emp_id FROM employee where emp_operator=(?)) e1 on emp_exam_result.emp_id=e1.emp_id", [current_user], (error, results) => {
     if (error) {
       console.error(error);
       res.status(500).send("Error retrieving company");
@@ -1621,6 +1621,7 @@ app.post('/spipa-training-req/:id', (req, res) => {
     }
   })
 })
+
 app.post('/adding_marks', (req, res) => {
   let { mark, emp_id } = req.body
   mark = Number(mark)

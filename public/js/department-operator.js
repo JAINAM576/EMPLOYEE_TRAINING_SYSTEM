@@ -103,11 +103,11 @@ $.get(`/all/emp-exam/${userdept}`, (data, status) => {
         data: data,
         bLengthChange: false,
         columns: [
-            { data: 'emp_id', title: 'Id' },
-            { data: 'emp_training_subject', title: 'Subject' },
+            { data: 'emp_id', title: 'Emp-Id' },
+            { data: 'emp_subject', title: 'Subject' },
             { data: 'emp_training', title: 'Training' },
-            { data: 'emp_marks', title: 'Marks' },
-            { data: 'date', title: 'Date' }
+            { data: 'marks', title: 'Marks' },
+            { data: 'out_of', title: 'Outof' },
         ]
     });
 
