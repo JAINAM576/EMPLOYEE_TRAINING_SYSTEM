@@ -110,8 +110,12 @@
             $.post(`/spipa-training-req/${e.target.value}`, (data, status) => {
                 let j=`<option selected value="-1" >Quiz Subject Name</option>`
         console.log("done")
+        let arr=[]
         data.forEach((element)=>{
-            j+=`<option  value=${element.emp_training_subject} >${element.emp_training_subject}</option>`
+            if(arr.includes(element.emp_training_subject)==false){
+                j+=`<option  value=${element.emp_training_subject} >${element.emp_training_subject}</option>`
+arr.push(element.emp_training_subject)
+            }
         })
         quiz_sub_name.innerHTML=j
             })
