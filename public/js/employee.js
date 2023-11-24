@@ -58,13 +58,45 @@ $.get(`./emp-exam/${user}`, (data, status) => {
         data: data,
         bLengthChange: false,
         columns: [
-            { data: 'emp_training_subject', title: 'Subject' },
+            { data: 'emp_id', title: 'Employee_id'},
+            { data: 'emp_subject', title: 'Subject' },
             { data: 'emp_training', title: 'Training' },
-            { data: 'emp_marks', title: 'Marks' },
-            { data: 'date', title: 'Date' },
-
+            { data: 'marks', title: 'Marks' },
+            { data: 'out_of', title: 'OUT_OF' },
         ]
     });
 
 
+});
+
+$.get(`/employee/status-1/${user}`, (data, status)=>{
+    if(data){
+        $("#status").html("->Status");$("#status-heading").html(`<tr>
+        <th>Req Id</th>
+        <th>Training</th>
+        <th>Subject</th>
+        <th>Status</th>
+      </tr>`);
+        for (let x = 0; x < data.length; x++) {
+            $('#status-table').append(
+                "<tr><td>"+data[x].req_id+"</td><td>"+data[x].emp_training+"</td><td>"+data[x].emp_training_subject+"</td><td>Department</td></tr>"
+            );
+        }
+    }   
+});
+$.get(`/employee/status-2/${user}`, (data, status)=>{
+    if(data){
+        $("#status").html("->Status");
+        $("#status-heading").html(`<tr>
+        <th>Req Id</th>
+        <th>Training</th>
+        <th>Subject</th>
+        <th>Status</th>
+      </tr>`);
+        for (let x = 0; x < data.length; x++) {
+            $('#status-table').append(
+                "<tr><td>"+data[x].req_id+"</td><td>"+data[x].emp_training+"</td><td>"+data[x].emp_training_subject+"</td><td>Spipa</td></tr>"
+            );
+        }
+    }   
 });

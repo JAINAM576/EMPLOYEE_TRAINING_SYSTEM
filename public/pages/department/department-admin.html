@@ -21,6 +21,13 @@
     <script src="../../js/department-admin.js"></script>
     <link href="../../css/index.css" rel="stylesheet" type="text/css">
 </head>
+<style>
+        .result_op{
+        color:#dc3545;
+        border:1px solid #dc3545 !important;
+        width: 60%;
+    }
+</style>
 
 <body>
 
@@ -29,23 +36,23 @@
             <div class="ssip-logo"></div>
             <div id="options" class="row g-0">
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger "
+                    <button type="button" class="btn btn-outline-danger result_op"
                         onClick="document.getElementById('see-req').scrollIntoView();">See Request</button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger"
+                    <button type="button" class="btn btn-outline-danger result_op"
                         onClick="document.getElementById('current-dept').scrollIntoView();">
                         Current Opt.
                     </button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-outline-danger result_op" data-bs-toggle="modal"
                         data-bs-target="#remove-opt">
                         Remove Opt.
                     </button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-outline-danger result_op" data-bs-toggle="modal"
                         data-bs-target="#add-opt">
                         Add Opt.
                     </button>

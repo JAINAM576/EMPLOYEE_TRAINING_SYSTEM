@@ -20,6 +20,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
 
 <style>
+  
     select>option {
         margin-top: 8px !important;
     }
@@ -39,6 +40,11 @@
 
     .emp_signin {
         margin-left: 1%;
+    }
+    @media screen and (max-width:1000px){
+        .container{
+            width: 80%;
+        }
     }
 </style>
 
@@ -65,6 +71,8 @@
                 <p>Haven't Registered Yet? <a href="/employee/signin" style="color: red;"> Sign In</a></p>
                 <hr>
                 <p>For Department : <a href="/department/signin" style="color: red;">Department Sign In</a></p>
+                <hr>
+                <p>For Spipa : <a href="/spipa/signin" style="color: red;">Spipa Sign In</a></p>
             </div>
         </form>
     </div>
@@ -113,6 +121,7 @@
                 });
             });
         });
+  
     </script>
 </body>
 

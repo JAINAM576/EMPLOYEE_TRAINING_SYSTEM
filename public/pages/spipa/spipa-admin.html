@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-12">
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                        data-bs-target="#add-training">
+                        data-bs-target="#add-training" id="add_training">
                         add training
                     </button>
                 </div>
@@ -106,24 +106,24 @@
                     <div class="collapse navbar-collapse" id="mynavbar">
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
-                                <button type="button" class="btn btn-outline-danger "
+                                <button type="button" class="btn btn-light "
                                     onClick="document.getElementById('see-req-admin').scrollIntoView();">Dept.admin</button>
 
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn btn-outline-danger"
+                                <button type="button" class="btn btn-light"
                                     onClick="document.getElementById('see-req-operator').scrollIntoView();">
                                     Spipa Opt.
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#add-training">
+                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#add-training" id="add_training1">
                                     add training
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
                                     data-bs-target="#add-dept-name">
                                     add dept
                                 </button>
@@ -175,7 +175,7 @@
 
                     <!-- Modal body - REMOVE -->
                     <div class="modal-body">
-                        <form>
+                      
                             <form>
                                 <div class="form-group">
                                     <label for="training">Training Name : </label>
@@ -187,6 +187,20 @@
                                     <label for="training_subject">Training Subject Name : </label>
                                     <input class="form-control" id="training_subject" type="text"
                                         placeholder="Training Subject" required>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="sel1" class="form-label">Training Cordinator Id: </label>
+                                    <select class="form-select form-control" id="sel1" name="cordinator_name" required>
+                                        <option>cordinator 1</option>
+                                       
+                                      </select>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="training_cap" class="form-label">Training Capacity: </label>
+                                    <input class="form-control" id="training_cap" type="number"
+                                    placeholder="Value" required>
                                 </div>
                                 <br>
 
@@ -206,10 +220,10 @@
                                         </div>
                                 </div>
                                 <br>
+                                <button type="button" class="btn btn-default btn-danger emp_login"
+                                    id="btn-add-training">Add</button>
                             </form>
-                            <button type="button" class="btn btn-default btn-danger emp_login"
-                                id="btn-add-training">Add</button>
-                        </form>
+                    
                     </div>
 
                     <!-- Modal footer -->
@@ -268,5 +282,57 @@
         }).DONE;
         
     })
+  
+    let sel1=document.getElementById('sel1')
+// // <option>dept 1</option>
+// fetch('/employee/cordinators').then(async (res)=>{
+// res.json().then((res1)=>{
+// let j;
+// res1.results1.forEach(element => {
+// console.log(element.spipa_emp_id)
+// j=j+`<option>${element.spipa_emp_id}</option>`
+// });
+// sel1.innerHTML=j;
+// }
+//         )})
+let name={
+    loc:spipaname
+}
+
+function getingcordinatorsid(){
+
+    $.ajax({
+        type: 'post',
+        url: `/employee/cordinators`,
+        data: JSON.stringify(name),
+        contentType: "application/json; charset=utf-8",
+        traditional: true,
+        success: function (data) {
+            console.log(data)
+            let j;
+            data.results1.forEach(element => {
+console.log(element.spipa_emp_id)
+j=j+`<option>${element.spipa_emp_id}</option>`
+});
+
+    sel1.innerHTML=j;
+
+
+
+}
+});
+
+}
+// let add_training=document.getElementById('add_training')
+
+// add_training.addEventListener('click',()=>{
+//      getingcordinatorsid()
+
+// })
+
+
+
+document.getElementById('add_training').addEventListener('click',getingcordinatorsid())
+
     </script>
 </html>

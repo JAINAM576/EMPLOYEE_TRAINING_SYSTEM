@@ -32,16 +32,17 @@
         width: 45%;
     }
 
-    .dept_signin,
-    .dept_login {
+    .emp_signin,
+    .emp_login {
         width: 100px;
     }
 
-    .dept_signin {
+    .emp_signin {
         margin-left: 1%;
     }
-    @media screen and (max-width:1000px){
-        .container{
+
+    @media screen and (max-width:1000px) {
+        .container {
             width: 80%;
         }
     }
@@ -49,78 +50,78 @@
 
 <body>
     <div class="container">
-        <p style="font-size: 4rem;margin: 20px 0;text-align: center;font-weight: 600;"> Department Login </p>
-        <form action="/department/login" method="post">
+        <p style="font-size: 4rem;margin: 20px 0;text-align: center;font-weight: 600;">Training Exam</p>
+        <form action="/quiz/login" method="post">
 
-            <div class="form-group">
-                <label for="dept_emp_id">User ID : </label>
-                <input class="form-control" id="dept_emp_id" type="number" placeholder="User Id" name="login_id" required>
-            </div>
-            <div class="form-group" style="padding-left: 0;">
-                <label for="dept_emp_role" class="form-label" style="margin-bottom: 0 !important;">Role :</label>
-                <select class="form-select form-control" id="dept_emp_role" name="dept_emp_role">
-                  <option>Admin</option>
-                  <option>Operator</option>
+            <div class="mb-3 mt-4 col-6">
+                <label for="exam_name" class="form-label" style="margin-bottom: 0 !important;">Exam :</label>
+                <select class="form-select form-control" id="exam_name" name="exam_name">
+
                 </select>
-              </div>
-            <div class="form-group">
-                <label for="dept_password">Password :</label>
-                <input class="form-control" id="dept_password" type="password" placeholder="Password" name="login_password"
-                    required>
             </div>
 
-            <div class="form-group" style="text-align: center;">
-                <button id="login_button" type="button" class="btn btn-default btn-danger dept_login">Login</button>
-                <br>
-                <hr>
-                <p>Haven't Registered Yet? <a href="/department/signin" style="color: red;"> Sign In</a></p>
+            <div class="form-group" style="text-align: center; margin-top: 20px;">
+                <button id="login_button" type="button" class="btn btn-default btn-danger emp_login">Login</button>
             </div>
         </form>
     </div>
 
     <script>
-        //save and check user and password
-        function setCookie(cname, cvalue, exdays) {
+        
+        //check cookie
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+         //save 
+         function setCookie(cname, cvalue, exdays) {
             const d = new Date();
             d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
             let expires = "expires=" + d.toUTCString();
             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         }
-
+        const user = getCookie("user");
+        $.get(`/quiz/exam_name`, (data, status) => {
+            console.log(data)
+            for (let x = 0; x < data.length; x++) {
+                $("#exam_name").append("<option>" + data[x].exam_name + "</option>");
+            }
+        });
         $(document).ready(function () {
             $("#login_button").click(function () {
-
-                const login_id = $("#dept_emp_id").val()
-                const login_role = $("#dept_emp_role").val()
-                const login_password = $("#dept_password").val()
-
-
                 const reqBody = {
-                    login_id: login_id,
-                    login_role: login_role,
-                    login_password:login_password
+                    exam: $(exam_name).val(),
+                    user: user
                 };
-
                 $.ajax({
                     type: 'post',
-                    url: '/department/login',
+                    url: '/quiz/login',
                     data: JSON.stringify(reqBody),
                     contentType: "application/json; charset=utf-8",
                     traditional: true,
                     success: function (data) {
                         if (data) {
-                            setCookie("userdept", login_id, 1);
-                            setCookie("passdept", login_password, 1);
-                            setCookie("roledept", login_role, 1);
                             alert('success');
-                            window.location.assign(`/department/${login_role}`);
+                            setCookie("exam", $(exam_name).val(),1)
+                            window.location.assign("/give/quiz");
                         }
                         else {
-                            alert("wrong info");
+                            alert("Not elligable");
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        alert("error: "+ thrownError)
+                        alert("error: " + thrownError)
                     }
                 });
             });

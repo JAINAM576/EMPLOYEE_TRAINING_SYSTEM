@@ -40,10 +40,47 @@
     .dept_signin {
         margin-left: 1%;
     }
+    
+    .btn{
+    margin: auto;
+    width: auto !important;
+}
+
+.main2{
+    
+    position:sticky;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* min-height: 100vh; */
+    bottom:50%;
+    width: 100%;
+height: 100vh;
+font-weight: bold;
+display: none;
+}
+.box{
+    width: 40%;
+    background-color: white;
+    z-index: 1;
+    box-shadow: 2px 2px 2px rgba(255, 255, 255, 0.639);
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px 5px;
+    height: 30%;
+}
+.info{
+    padding: 10px 5px;
+}
+@media screen and (max-width:1000px){
+        .container{
+            width: 80%;
+        }
+    }
 </style>
 
 <body>
-    <div class="container">
+    <div class="container" id="main">
         <p style="font-size: 4rem;margin: 20px 0;text-align: center;font-weight: 600;"> Spipa Login </p>
         <form action="/department/login" method="post">
 
@@ -56,6 +93,7 @@
                 <select class="form-select form-control" id="spipa_emp_role" name="spipa_emp_role">
                   <option>Admin</option>
                   <option>Operator</option>
+                  <option>Cordinator</option>
                 </select>
               </div>
             <div class="form-group">
@@ -72,6 +110,24 @@
             </div>
         </form>
     </div>
+    <div class="main2" id="main2">
+        <div class="box">
+            <div class="info">
+              Sorry,but till any training is not allocted to you 
+              <hr>
+              BY spipa_admin You cannot login as spipa_cordinator. 
+              <hr>
+              When training is allocated to you will get know by your email .
+              <hr>
+              Which is you provided during signin.
+
+            </div>
+            <div class="feed">
+                <hr>
+                 <button class="btn btn-danger" id="exit">Exit</button> 
+            </div>
+        </div>
+    </div>
 
     <script>
         //save and check user and password
@@ -86,7 +142,7 @@
             $("#login_button").click(function () {
 
                 const login_id = $("#spipa_emp_id").val()
-                const login_role = $("#spipa_emp_role").val()
+                const login_role =( $("#spipa_emp_role").val()).toLowerCase()
                 const login_password = $("#spipa_password").val()
 
 
@@ -95,8 +151,65 @@
                     login_password:login_password,
                     login_role:login_role
                 };
-                $.ajax({
-                    type: 'post',
+                if(login_role=='cordinator'){
+                    var check=1;
+                    $.ajax({
+                        type:'post',
+                        url:'/spipa/test_role',
+                        data:JSON.stringify(reqBody),
+                        contentType:"application/json; charset=utf-8",
+                        traditional:true,
+                        success:function (data){
+                            if(data=="0"){
+
+                               let main=document.getElementById("main")
+                               let main2=document.getElementById("main2")
+                               main.style.filter='blur(1px)'
+   main2.style.display='flex'
+   document.getElementById('exit').addEventListener('click',(e)=>{
+       
+       console.log("hi")
+       main.style.filter='blur(0px)'
+       main2.style.display='none'
+
+   
+})
+
+
+                            }
+                            else{
+
+                                console.log(data,"data is coming")
+                                $.ajax({
+                                    type: 'post',
+                    url: '/spipa/login',
+                    data: JSON.stringify(reqBody),
+                    contentType: "application/json; charset=utf-8",
+                    traditional: true,
+                    success: function (data) {
+                        if (data) {
+                            setCookie("userspipa", login_id, 1);
+                            setCookie("passspipa", login_password, 1);
+                            setCookie("rolespipa", login_role, 1);
+                            
+                            alert('success');
+                            window.location.assign(`/spipa/${login_role}`);
+                        }
+                        else {
+                            alert("wrong info");
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert("error: "+ thrownError)
+                    }
+                });
+            }
+        }
+    })
+    
+    }
+    $.ajax({
+                                    type: 'post',
                     url: '/spipa/login',
                     data: JSON.stringify(reqBody),
                     contentType: "application/json; charset=utf-8",

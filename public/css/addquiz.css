@@ -1,0 +1,44 @@
+:root{
+    --ssip-back:#ffffff;
+    --ssip-primary:#E12828;
+    --ssip-primary-rgb:224, 41, 41;
+    --ssip-secondary:#F5533D;
+    --ssip-front:#010101;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.quiz_title{
+    font-size: 2rem ;
+    font-weight: 700;
+}
+.quiz_box{
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 20px 40px;
+    background-color: #F6F8FF;
+    position: relative;
+}
+.que-no{
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: 700;
+    padding: 8px 16px;
+    background-color: #3b71ca;
+    color: #F6F8FF;
+}
+#total_marks{
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+@media screen and (max-width:1000px) {
+
+}
