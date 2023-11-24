@@ -15,6 +15,7 @@ function getCookie(cname) {
     return "";
 }
 const userspipa=getCookie("userspipa");
+const passspipa=getCookie("passspipa");
 const rolespipa=getCookie("rolespipa");
 const reqBody = {
     userspipa: getCookie("userspipa").length,
@@ -30,6 +31,7 @@ $.ajax({
     success: function (data) {
         if (data==1) {
             alert("welcome " + getCookie("userspipa"))
+            
         }
         else{
             window.location.assign("/spipa/login")

@@ -86,7 +86,8 @@
         <div class="col-lg-6 col-md-12" style="padding-left: 0;">
           <label for="emp_birth_date">Birth Date :</lebel>
             <div class='input-group date' id='emp_birth_date' style="margin-bottom:0 !important">
-              <input type='date' class="form-control" required name="emp_birth_date" />
+              <input type='date' class="form-control" required name="emp_birth_date" id="bdate"/>
+              
             </div>
         </div>
         <div class="form-group col-lg-6 col-md-12" style="padding-left: 0;">
@@ -108,9 +109,31 @@
 
   </div>
   <script>
-  
+    function addYears(date, years) {
+      date.setFullYear(date.getFullYear() + years);
+      return date;
+    }
+    function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+    }
+    var min=formatDate(addYears(new Date(), -18));
+    var max=formatDate(addYears(new Date(), -100));
+    console.log(min+"hii"+max)
+    document.getElementById("bdate").setAttribute("max",`${min}`)
+    document.getElementById("bdate").setAttribute("min",`${max}`)
     let sel1=document.getElementById('sel1')
     // <option>dept 1</option>
+    
    fetch('/employee/options').then(async (res)=>{
   res.json().then((res1)=>{
   let j;
