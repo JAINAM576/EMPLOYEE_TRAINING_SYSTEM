@@ -367,7 +367,9 @@ $(document).ready(function () {
                 console.log($(`#${element}`).val(), typeof ($(`#${element}`).val()))
                 let marks = {
                     mark: $(`#${element}`).val(),
-                    emp_id: element
+                    emp_id: element,
+                    training:training_name,
+                    subject: $('#sel2').val()
                 }
                 $.ajax({
                     type: 'post',

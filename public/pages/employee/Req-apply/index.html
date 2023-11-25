@@ -78,11 +78,12 @@
             <label>Center</label>
             <select class="form-select" aria-label="Default select example" id="city">
                 <option selected value="-1">Select Location</option>
-                <option  value="Ahemdabad">ahemdabad</option>
+                <option  value="ahemdabad">Ahemdabad</option>
+                <option value="Gandhinagar">Gandhinagar</option>
                 <option value="Mehsana">Mehsana</option>
                 <option value="Rajkot">Rajkot</option>
                 <option value="Surat">Surat</option>
-                <option value="Mumbai">Mumbai</option>
+                <option value="Mumbai">Vadodara</option>
             </select>
             <label>Subject:</label>
             <select class="form-select" disabled aria-label="Default select example" id="subsubject">
@@ -207,7 +208,7 @@ let val1=city.value.toLowerCase();
 let val3=subsubject.value.toLowerCase();
 $.post("/employee/date",{lw,val1,val3},
 function (data, status) {
-            console.log(data,"res")
+            console.log(data+"hi")
             let total_sub;
             let total_sub1;
             data.forEach((element)=>{

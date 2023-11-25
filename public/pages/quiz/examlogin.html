@@ -93,7 +93,7 @@
         }
         const user = getCookie("user");
         $.get(`/quiz/exam_name`, (data, status) => {
-            console.log(data)
+           
             for (let x = 0; x < data.length; x++) {
                 $("#exam_name").append("<option>" + data[x].exam_name + "</option>");
             }
