@@ -29,30 +29,30 @@
             <div class="ssip-logo"></div>
             <div id="options" class="row g-0">
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger "
+                    <button type="button" class="btn menu-btn btn-outline-danger "
                         onClick="document.getElementById('see-req-admin').scrollIntoView();">Dept.admin</button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger"
+                    <button type="button" class="btn menu-btn btn-outline-danger"
                         onClick="document.getElementById('see-req-operator').scrollIntoView();">
                         Spipa Opt.
                     </button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                    <button type="button" class="btn menu-btn btn-outline-danger" data-bs-toggle="modal"
                         data-bs-target="#add-training" id="add_training">
-                        add training
+                        Add Training
                     </button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                    <button type="button" class="btn menu-btn btn-outline-danger" data-bs-toggle="modal"
                         data-bs-target="#add-dept-name">
-                        add dept
+                        Add Department
                     </button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger" id="quiz">
-                        Add Quiz
+                    <button type="button" class="btn menu-btn btn-outline-danger" id="quiz">
+                        Add TNA Quiz
                     </button>
                 </div>
             </div>
@@ -129,7 +129,7 @@
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/spipa/add-quiz">Add Quiz</a>
+                                <a class="nav-link" href="/spipa/add-quiz">Add TNA Quiz</a>
                             </li>
                         </ul>
                     </div>
@@ -139,25 +139,18 @@
 
 
             <p class="ssip-title">
-                Request for Department Admin:
+                Request for Department Admin :
             </p>
 
             <div id="see-req-admin" style="padding-left: 30px;" class="col-12">
-                <p class="ssip-sub-title">
-                    ->All pending request
-                </p>
-
                 <table id="dept-req-table" class="table table-striped mt-5">
                 </table>
             </div>
             <p class="ssip-title">
-                Request for Spipa Operator:
+                Request for Spipa Operator :
             </p>
 
             <div id="see-req-operator" style="padding-left: 30px;" class="col-12">
-                <p class="ssip-sub-title">
-                    ->All pending request
-                </p>
                 <table id="opt-req-table" class="table table-striped mt-5">
                 </table>
             </div>

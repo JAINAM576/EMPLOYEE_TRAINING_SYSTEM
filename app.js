@@ -46,7 +46,7 @@ pool.connect(function (err) {
 
 
 app.get("/", (req, res) => {
-  res.redirect("/employee");
+  res.redirect("/employee/login");
 });
 app.get("/employee/login", (req, res) => {
 

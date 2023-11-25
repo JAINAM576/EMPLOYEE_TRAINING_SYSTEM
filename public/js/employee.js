@@ -31,7 +31,7 @@ $.ajax({
     traditional: true,
     success: function (data) {
         if (data) {
-            alert("welcome "+ getCookie("user"))
+           
         }
     },
     error: function (xhr, ajaxOptions, thrownError) {
@@ -86,7 +86,7 @@ $.get(`/employee/status-1/${user}`, (data, status)=>{
       </tr>`);
         for (let x = 0; x < data.length; x++) {
             $('#status-table').append(
-                `<tr><td>`+data[x].req_id+`</td><td>`+data[x].emp_training+`</td><td>`+data[x].emp_training_subject+`</td><td>Department</td></td><td><button class='btn btn-danger btnDelete' onclick="reject(` + data[x].req_id + `)">Not Apply</button></td></tr>`
+                `<tr><td>`+data[x].req_id+`</td><td>`+data[x].emp_training+`</td><td>`+data[x].emp_training_subject+`</td><td>Department</td></td><td><button class='btn btn-danger btnDelete' onclick="reject(` + data[x].req_id + `)">Delete Req</button></td></tr>`
             );
         }
     }   
@@ -103,7 +103,7 @@ $.get(`/employee/status-2/${user}`, (data, status)=>{
       </tr>`);
         for (let x = 0; x < data.length; x++) {
             $('#status-table').append(
-                `<tr><td>`+data[x].req_id+`</td><td>`+data[x].emp_training+`</td><td>`+data[x].emp_training_subject+`</td><td>Spipa</td></td><td><button class='btn btn-danger btnDelete' onclick="reject2(` + data[x].req_id + `)">Not Apply</button></td></tr>`
+                `<tr><td>`+data[x].req_id+`</td><td>`+data[x].emp_training+`</td><td>`+data[x].emp_training_subject+`</td><td>Spipa</td></td><td><button class='btn btn-danger btnDelete' onclick="reject2(` + data[x].req_id + `)">Delete Req</button></td></tr>`
          );
         }
     }   

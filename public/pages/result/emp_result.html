@@ -404,6 +404,9 @@ return ;
 certi.addEventListener('click', function () {
     check=false
     drawImage()
+    if(!iseligible){
+        return ;
+    }
 	certi.href = canvas.toDataURL('image/jpg')
 	certi.download = 'Certificate - ' + name_my
 })

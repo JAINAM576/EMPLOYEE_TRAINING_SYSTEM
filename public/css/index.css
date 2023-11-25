@@ -149,7 +149,9 @@ table{
 .user-title{
     color: white;
     margin-top: 2.5%;
-    transform: translateX(-260%);
+    position: absolute;
+    left: 50px;
+    top:0;
 }
 
 

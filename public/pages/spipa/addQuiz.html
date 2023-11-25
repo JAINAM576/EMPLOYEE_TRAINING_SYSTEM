@@ -140,6 +140,7 @@ Planning Effective Implementation of MGNREGA
     <button class="btn btn-default btn-danger dept_signin" id="submit">Add question</button>
     <button type="button" class="btn btn-default btn-danger dept_login" id="reset">Reset</button>
     <button type="button" class="btn btn-default btn-danger dept_login" style="width: auto;" id="sq">Sample question</button>
+    <button id="back-btn" type="button" class="btn btn-danger" onclick="back()">Back</button>
   </div>
   
 </form>
@@ -147,6 +148,9 @@ Planning Effective Implementation of MGNREGA
   </div>
 </body>
 <script>
+  function back() {
+        window.location.replace("/spipa/admin")
+    }
   // $.post("http://localhost:3000/employee/options",
   // {results1},
   //         function (data, status) {

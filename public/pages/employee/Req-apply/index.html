@@ -56,10 +56,7 @@
             padding: 5px 5px;
             height: 45%;
         }
-        #apply-btn{
-            padding: 8px 16px;
-            margin-top: 20px;
-        }
+       
         
         @media screen and (max-width:1000px){
         .container{
@@ -108,7 +105,9 @@
                 <option value="suboption1" >2020-08-11</option>
      
             </select>
-            <button id="apply-btn" type="button" class="btn btn-primary">Apply for Training</button>
+            
+            <button id="apply-btn" type="button" class="btn btn-primary mt-4" style="margin-right: 10px !important;">Apply for Training</button>
+            <button id="back-btn" type="button" class="btn btn-danger mt-4" onclick="back()"style="margin-left: 10px !important;">Back</button>
         </form>
     </div>
     
@@ -116,7 +115,9 @@
 <script>
 
 
-
+function back() {
+        window.location.replace("/employee")
+    }
     const mainSelect = document.getElementById('mainSelect');
     const subSelect = document.getElementById('subSelect');
     const subsubject=document.getElementById("subsubject")
