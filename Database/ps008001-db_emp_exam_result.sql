@@ -16,32 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `spipa_training_req`
+-- Table structure for table `emp_exam_result`
 --
 
-DROP TABLE IF EXISTS `spipa_training_req`;
+DROP TABLE IF EXISTS `emp_exam_result`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `spipa_training_req` (
-  `req_id` int NOT NULL AUTO_INCREMENT,
-  `emp_id` int DEFAULT NULL,
-  `emp_name` varchar(150) DEFAULT NULL,
-  `emp_training_subject` varchar(150) DEFAULT NULL,
-  `emp_training` varchar(150) DEFAULT NULL,
-  `emp_start_date` date DEFAULT NULL,
-  `emp_ending_date` date DEFAULT NULL,
-  `spipa_location` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`req_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `emp_exam_result` (
+  `emp_id` varchar(150) NOT NULL,
+  `emp_training` varchar(150) NOT NULL,
+  `emp_subject` varchar(150) NOT NULL,
+  `marks` int DEFAULT NULL,
+  `out_of` int DEFAULT '100',
+  PRIMARY KEY (`emp_id`,`emp_training`,`emp_subject`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `spipa_training_req`
+-- Dumping data for table `emp_exam_result`
 --
 
-LOCK TABLES `spipa_training_req` WRITE;
-/*!40000 ALTER TABLE `spipa_training_req` DISABLE KEYS */;
-/*!40000 ALTER TABLE `spipa_training_req` ENABLE KEYS */;
+LOCK TABLES `emp_exam_result` WRITE;
+/*!40000 ALTER TABLE `emp_exam_result` DISABLE KEYS */;
+INSERT INTO `emp_exam_result` VALUES ('1','Data-Management','Gol-sponsered',78,100),('1','EDP-t1-2022','EDP',89,100),('2','Data-Management','Gol-sponsered',82,100),('2','EDP-t1-2022','EDP',68,100),('4','EDP-t1-2022','EDP',46,100),('5','EDP-t1-2022','EDP',66,100);
+/*!40000 ALTER TABLE `emp_exam_result` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

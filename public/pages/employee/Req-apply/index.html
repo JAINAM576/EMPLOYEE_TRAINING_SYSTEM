@@ -107,14 +107,60 @@
             </select>
             
             <button id="apply-btn" type="button" class="btn btn-primary mt-4" style="margin-right: 10px !important;">Apply for Training</button>
+            <button type="button" class="btn btn-danger mt-4" style="margin-left: 10px !important;" data-bs-toggle="modal" data-bs-target="#add-training"
+            id="add_training1">
+            Broucher
+        </button>
             <button id="back-btn" type="button" class="btn btn-danger mt-4" onclick="back()"style="margin-left: 10px !important;">Back</button>
         </form>
+
+        <section>
+       
+            <div class="modal" id="add-training">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+    
+                       <div class="modal-body">
+                        
+                            <table id="braoucher" class="table table-striped "></table>
+                        
+                       </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </section>
+    
     </div>
     
 </body>
 <script>
 
+$.get(`/braoucher`, (data, status) => {
 
+
+$('#braoucher').DataTable({
+    searching: false, paging: false, info: false,
+    data: data,
+    bLengthChange: false,
+    columns: [
+        { data: 'training_subject', title: 'Subject' },
+        { data: 'training', title: 'Training' },
+    ]
+});
+
+
+});
+
+$("braoucher-tag").toggle(
+function () {
+    $("#braoucher").css("display: block;");
+}
+)
 function back() {
         window.location.replace("/employee")
     }
@@ -219,6 +265,48 @@ function (data, status) {
         })
         subSelect1.innerHTML=total_sub
         subSelect2.innerHTML=total_sub1
+        let date1=data[0].start_date.slice(0,10);
+        let date2=data[0].end_date.slice(0,10)
+        let date_slice=new Date(date1.slice(0,4)).getFullYear()
+    let today_s=new Date().getFullYear()
+    console.log(today_s,"today_s",date_slice,"date_slice")
+    if(today_s>=date_slice){
+        if(today_s==date_slice){
+            console.log(today_s,"today_s in first",date_slice,"date_slice")
+            today_s=new Date().getMonth()
+            let training_month='2023-'
+             training_month +=date1.slice(5,7)
+              training_month+='-01'
+              training_month=new Date(training_month).getMonth()
+            console.log(today_s,"today_s in first after",training_month,"date_slice")
+            if(today_s>=training_month){
+                if(today_s==training_month){
+                    today_s=new Date().getDate()
+                    let training_date="2023-01-"
+             training_date+=date1.slice(8,10)
+            training_date=new Date(training_date).getDate()
+            console.log(today_s,"today",training_date,"training")
+            if(today_s>training_date){
+                isdisable=false
+            }
+        }else{
+                    isdisable=false
+                   
+                }
+            }
+        }else{
+            isdisable=false
+           
+        }
+
+    }
+    if(isdisable==false){
+        document.getElementById("apply-btn").disabled=true
+    }else{
+        document.getElementById("apply-btn").disabled=false
+
+    }
+        
           // window.location.assign('/employee/signin')
           }).DONE;
 

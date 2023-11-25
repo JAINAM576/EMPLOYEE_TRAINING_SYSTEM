@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: ps008001-db
+-- Host: 127.0.0.1    Database: ps008001-db
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.1.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -32,7 +32,7 @@ CREATE TABLE `dept_req` (
   `dept_emp_role` varchar(150) DEFAULT 'operator',
   `dept_email` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`dept_req_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `dept_req` (
 
 LOCK TABLES `dept_req` WRITE;
 /*!40000 ALTER TABLE `dept_req` DISABLE KEYS */;
-INSERT INTO `dept_req` VALUES (1,'dept 1','jamnagar',9313869057,'hi123','2023-11-13','operator','parmarparth954@gmail.com'),(2,'dept 2','ahemdabad',282920202,'1234','2023-11-15','Admin','jainam@gmail.com');
+INSERT INTO `dept_req` VALUES (3,'Agriculture, Farmers Welfare and Cooperation Department, Gujarat','unja',9824533679,'hi123','2023-11-25','Operator','parmarparth954@gmail.com'),(4,'Education Department, Gujarat','unja',9824533679,'hi123','2023-11-25','Operator','parmarparth954@gmail.com');
 /*!40000 ALTER TABLE `dept_req` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15 17:37:41
+-- Dump completed on 2023-11-25 15:21:35

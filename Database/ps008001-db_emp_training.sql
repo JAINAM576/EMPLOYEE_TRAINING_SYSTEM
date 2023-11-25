@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: ps008001-db
+-- Host: 127.0.0.1    Database: ps008001-db
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.1.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,11 +25,11 @@ DROP TABLE IF EXISTS `emp_training`;
 CREATE TABLE `emp_training` (
   `emp_id` int NOT NULL,
   `emp_training` varchar(150) NOT NULL,
-  `emp_training_subject` varchar(150) DEFAULT NULL,
+  `emp_training_subject` varchar(150) NOT NULL,
   `emp_start_date` date DEFAULT NULL,
   `emp_ending_date` date DEFAULT NULL,
   `spipa_location` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`emp_id`,`emp_training`)
+  PRIMARY KEY (`emp_id`,`emp_training`,`emp_training_subject`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,7 +39,7 @@ CREATE TABLE `emp_training` (
 
 LOCK TABLES `emp_training` WRITE;
 /*!40000 ALTER TABLE `emp_training` DISABLE KEYS */;
-INSERT INTO `emp_training` VALUES (1,'t1','s1','2022-12-01','2022-01-04','Ahemdabad'),(10,'t2','s3','2022-06-01','2023-06-01','ahemdabad');
+INSERT INTO `emp_training` VALUES (1,'Data-Management','Gol-sponsered','2023-10-07','2024-04-15','ahemdabad'),(1,'EDP-t1-2022','EDP','2023-11-14','2024-01-12','ahemdabad'),(1,'ProGas-2023','Foundation','2023-09-26','2024-04-05','ahemdabad'),(2,'Combating-corruption','Gol-sponsered','2023-09-11','2024-04-15','ahemdabad'),(2,'Data-Management','Gol-sponsered','2023-10-07','2024-04-15','ahemdabad'),(2,'EDP-t1-2022','EDP','2023-11-14','2024-01-12','ahemdabad'),(2,'ProGas-Mamlatdarbatch-2023','Foundation','2023-09-26','2024-04-05','ahemdabad'),(4,'EDP-t1-2022','EDP','2023-11-14','2024-01-12','ahemdabad'),(4,'ProGas-2023','Foundation','2023-09-26','2024-04-05','ahemdabad'),(5,'EDP-t1-2022','EDP','2023-11-14','2024-01-12','ahemdabad'),(5,'ProGas-Mamlatdarbatch-2023','Foundation','2023-09-26','2024-04-05','ahemdabad'),(6,'EDP-t1-2022','EDP','2023-11-14','2024-01-12','ahemdabad');
 /*!40000 ALTER TABLE `emp_training` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15 17:37:40
+-- Dump completed on 2023-11-25 15:21:35

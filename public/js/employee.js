@@ -69,6 +69,7 @@ $.get(`./emp-exam/${user}`, (data, status) => {
             { data: 'emp_training', title: 'Training' },
             { data: 'marks', title: 'Marks' },
             { data: 'out_of', title: 'OUT_OF' },
+            
         ]
     });
 
@@ -149,3 +150,12 @@ $.get(`/employee/${user}`, (data, status) => {
         $(".applied_count").html(data[0].applied_count);
       }
     });
+    var utc = new Date().toJSON().slice(5,10).replace(/-/g,'/');
+
+    if (utc == "31/7") {
+        $.get(`/employee/countTraining/${user}`, (data, status) => { });
+    }
+    if(utc == "11/25")
+    {
+        $.get(`/employee/countTraining/${user}`, (data, status) => { });
+    }

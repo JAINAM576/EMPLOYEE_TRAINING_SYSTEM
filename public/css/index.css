@@ -115,21 +115,33 @@ table{
 }
 #training-info{
     padding-left: 40px !important;
+    
     margin-bottom: 100px;
 }
 #info-box{
     margin: 20px 0;
     padding: 20px 40px;
     background-color:#FFF6F7 ;
+    color: #010101;
 }
 .info-subject{
     font-size: 2rem;
     font-weight: 700;
+    color: #010101;
 }
 .info-title{
     font-size: 1.5rem;
     position: relative;
     margin-left: 20px;
+    color: #010101;
+}
+
+.info-training{
+    color: #010101;
+}
+
+.info-about{
+    color: #010101;
 }
 .info-title::before{
     height: 15px;
@@ -139,6 +151,7 @@ table{
     position: absolute;
     top: 10px;
     left: -20px;
+    color: #010101;
     background-color: var(--ssip-secondary);
 }
 

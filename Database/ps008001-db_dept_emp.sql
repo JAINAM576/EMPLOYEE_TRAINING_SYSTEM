@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: ps008001-db
+-- Host: 127.0.0.1    Database: ps008001-db
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.1.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,7 +31,7 @@ CREATE TABLE `dept_emp` (
   `dept_password` varchar(150) DEFAULT NULL,
   `dept_email` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`dept_emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `dept_emp` (
 
 LOCK TABLES `dept_emp` WRITE;
 /*!40000 ALTER TABLE `dept_emp` DISABLE KEYS */;
-INSERT INTO `dept_emp` VALUES (4,'operator','dept 1','surat',9313869057,'hi123','parmarparth954@gmail.com');
+INSERT INTO `dept_emp` VALUES (1,'Admin','Education Department, Gujarat','amreli',9824533679,'hi123','parmarparth954@gmail.com'),(2,'Operator','Education Department, Gujarat','palanpur',9824533679,'hi123','parmarparth954@gmail.com');
 /*!40000 ALTER TABLE `dept_emp` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15 17:37:42
+-- Dump completed on 2023-11-25 15:21:34

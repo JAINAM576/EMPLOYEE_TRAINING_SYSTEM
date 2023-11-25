@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: ps008001-db
+-- Host: 127.0.0.1    Database: ps008001-db
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.1.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,8 +29,9 @@ CREATE TABLE `training_programm` (
   `spipa_location` varchar(150) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
-  PRIMARY KEY (`training_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`training_id`),
+  UNIQUE KEY `training` (`training`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +40,7 @@ CREATE TABLE `training_programm` (
 
 LOCK TABLES `training_programm` WRITE;
 /*!40000 ALTER TABLE `training_programm` DISABLE KEYS */;
-INSERT INTO `training_programm` VALUES (1,'t1','s1','ahemdabad','2022-12-01','2022-01-04');
+INSERT INTO `training_programm` VALUES (1,'EDP-t1-2022','EDP','Ahemdabad','2023-11-14','2024-01-12'),(2,'ProGas-2023','Foundation','Ahemdabad','2023-09-26','2024-04-05'),(3,'ProGas-Mamlatdarbatch-2023','Foundation','Ahemdabad','2023-09-26','2024-04-05'),(4,'Probationary-IAS-batch-2023','Foundation','Ahemdabad','2023-09-04','2024-05-10'),(5,'Basic-adminstration','EDP','Ahemdabad','2023-09-11','2024-04-15'),(6,'Combating-corruption','Gol-sponsered','Ahemdabad','2023-09-11','2024-04-15'),(7,'Disaster-Management','Gol-sponsered','Ahemdabad','2023-09-11','2024-04-15'),(8,'Data-Management','Gol-sponsered','Ahemdabad','2023-10-07','2024-04-15');
 /*!40000 ALTER TABLE `training_programm` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15 17:37:39
+-- Dump completed on 2023-11-25 15:21:35

@@ -16,32 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `spipa_training_req`
+-- Table structure for table `exam_que`
 --
 
-DROP TABLE IF EXISTS `spipa_training_req`;
+DROP TABLE IF EXISTS `exam_que`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `spipa_training_req` (
-  `req_id` int NOT NULL AUTO_INCREMENT,
-  `emp_id` int DEFAULT NULL,
-  `emp_name` varchar(150) DEFAULT NULL,
-  `emp_training_subject` varchar(150) DEFAULT NULL,
-  `emp_training` varchar(150) DEFAULT NULL,
-  `emp_start_date` date DEFAULT NULL,
-  `emp_ending_date` date DEFAULT NULL,
-  `spipa_location` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`req_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `exam_que` (
+  `exam_name` varchar(200) NOT NULL,
+  `que_no` int NOT NULL,
+  `que_statement` varchar(1000) DEFAULT NULL,
+  `que_option_1` varchar(400) DEFAULT NULL,
+  `que_option_2` varchar(400) DEFAULT NULL,
+  `que_option_3` varchar(400) DEFAULT NULL,
+  `que_option_4` varchar(400) DEFAULT NULL,
+  `marks` int DEFAULT NULL,
+  `correct` int DEFAULT NULL,
+  PRIMARY KEY (`que_no`,`exam_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `spipa_training_req`
+-- Dumping data for table `exam_que`
 --
 
-LOCK TABLES `spipa_training_req` WRITE;
-/*!40000 ALTER TABLE `spipa_training_req` DISABLE KEYS */;
-/*!40000 ALTER TABLE `spipa_training_req` ENABLE KEYS */;
+LOCK TABLES `exam_que` WRITE;
+/*!40000 ALTER TABLE `exam_que` DISABLE KEYS */;
+INSERT INTO `exam_que` VALUES ('quiz 1',1,'how are you?','bad','nice','good','great',5,2),('quiz 1',2,'how is your dad','bad','nice','greatful','good',10,3),('quiz 1',3,'why are you giving?','Dont know','Just for fun','to get marks','obviously',2,3);
+/*!40000 ALTER TABLE `exam_que` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

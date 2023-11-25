@@ -21,11 +21,10 @@ require('dotenv').config();
 
 
 var pool = mysql.createConnection({
-  host: process.env.DB_HOST,
-  port:process.env.port1,
-  user: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DBNAME,
+  host: "localhost",
+  database: "ps008001-db",
+  user: "root",
+  password: "root",
   dateStrings: true
 });
 
@@ -2305,3 +2304,88 @@ app.get("/emp-training-req/pending_count/:id/:id2", (req, res) => {
     }
   );
 });
+app.get("/empname", (req, res) => {
+  var id=req.params.id;
+  pool.query(
+    "SELECT emp_name,emp_id from employee",
+    [id],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving");
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+//
+
+app.get(`/employee/countTraining/:id`,(req,res)=>{
+  const emp_id = req.params.id;
+  pool.query(
+    "SELECT count(emp_training.emp_id) as count, employee.emp_email from emp_training inner join employee on employee.emp_id = emp_training.emp_id where emp_training.emp_id=(?)",
+    [emp_id],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving company");
+      } else {
+        const count = results[0].count
+        const emp_email = results[0].emp_email
+        console.log(results[0]);
+        if (count == 0 || count == 1) {
+
+
+           async function send(to_mail, message, subject) {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "jainamsanghavi008@gmail.com",
+          pass: "wmcnnvjipuyqawpf",
+        },
+      });
+      const mailoptions = {
+        from: "jainamsanghavi008@gmail.com",
+        to: to_mail,
+        html: message,
+        subject: subject,
+      };
+      try {
+        const result = await transporter.sendMail(mailoptions);
+        console.log("success");
+        res.json(1)
+      } catch (error) {
+        console.log("error", error);
+        res.json(0)
+      }
+    }
+    send(
+     emp_email,
+      "<h1>You have opted "+ count +" training, Please refer to more training immidiately </h1>"
+      ,
+      "Training Information"
+    );
+        }
+        res.status(200).json(results);
+
+      }
+    }
+    );
+  
+})
+app.get("/braoucher",(req,res)=>{
+  pool.query(
+    "SELECT training ,training_subject  FROM training_programm;",
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving company");
+      } else {
+        console.log(results);
+        res.status(200).json(results);
+      }
+    }
+    );
+
+})

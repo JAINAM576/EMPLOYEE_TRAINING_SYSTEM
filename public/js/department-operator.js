@@ -83,35 +83,63 @@ $.get(`/emp-training-req/${userdept}/${deptname}`, (data, status) => {
 
 });
 $.get(`/all/emp-training/${userdept}`, (data, status) => {
-
-
-    $('#all-employee-table').DataTable({
-        data: data,
-        bLengthChange: false,
-        columns: [
-            { data: 'emp_id', title: 'Id' },
-            { data: 'emp_training', title: 'Training Name' },
-            { data: 'emp_start_date', title: 'Start' },
-            { data: 'emp_ending_date', title: 'end' }
-        ]
-    });
-
-
+    let datan=[];
+        $.get(`/empname`, (data2, status) => {
+            console.log("",data2[0].emp_id)
+            for(let i=0;i<data.length;i++){
+                let name;
+                for(let x=0;x<data2.length;x++){
+                    if((data[i].emp_id)==(data2[x].emp_id)){
+                        name=data2[x].emp_name;
+                    }
+                }
+                const newdata={emp_id:`${data[i].emp_id}`,names:`${name}`,emp_training:`${data[i].emp_training}`,emp_start_date:`${data[i].emp_start_date}`,emp_ending_date:`${data[i].emp_ending_date}`}
+                datan.push(newdata);
+            }
+            $('#all-employee-table').DataTable({
+        
+                data: datan,
+                bLengthChange: false,
+                columns: [
+                    {data:'names',title:'Names'  
+                    },
+                    { data: 'emp_training', title: 'Training Name' },
+                    { data: 'emp_start_date', title: 'Start' },
+                    { data: 'emp_ending_date', title: 'end' }
+                ]
+            });
+        });
 });
+
 $.get(`/all/emp-exam/${userdept}`, (data, status) => {
+    let datan=[];
+        $.get(`/empname`, (data2, status) => {
+            console.log("",data2[0].emp_id)
+            for(let i=0;i<data.length;i++){
+                let name;
+                for(let x=0;x<data2.length;x++){
+                    if((data[i].emp_id)==(data2[x].emp_id)){
+                        name=data2[x].emp_name;
+                    }
+                }
+                const newdata={emp_id:`${data[i].emp_id}`,names:`${name}`,emp_subject:`${data[i].emp_subject}`,emp_training:`${data[i].emp_training}`,marks:`${data[i].marks}`,out_of:`${data[i].out_of}`}
+                datan.push(newdata);
+            }
+            $('#all-marks-table').DataTable({
+                data: datan,
+                bLengthChange: false,
+                columns: [
+                    {data:'names',title:'Names'  
+                    },
+                    { data: 'emp_subject', title: 'Subject' },
+                    { data: 'emp_training', title: 'Training' },
+                    { data: 'marks', title: 'Marks' },
+                    { data: 'out_of', title: 'Outof' },
+                ]
+            });
+        });
 
-
-    $('#all-marks-table').DataTable({
-        data: data,
-        bLengthChange: false,
-        columns: [
-            { data: 'emp_id', title: 'Emp-Id' },
-            { data: 'emp_subject', title: 'Subject' },
-            { data: 'emp_training', title: 'Training' },
-            { data: 'marks', title: 'Marks' },
-            { data: 'out_of', title: 'Outof' },
-        ]
-    });
+    
 
 
 });

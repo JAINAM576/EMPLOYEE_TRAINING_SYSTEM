@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: ps008001-db
+-- Host: 127.0.0.1    Database: ps008001-db
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.1.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -32,8 +32,9 @@ CREATE TABLE `employee` (
   `emp_password` varchar(150) DEFAULT NULL,
   `emp_operator` varchar(150) DEFAULT NULL,
   `emp_gender` varchar(10) DEFAULT NULL,
+  `status` int DEFAULT '1',
   PRIMARY KEY (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +43,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'krunal','parmarparth954@gmail.com','2023-10-24',9313869057,'dept 1','hi123','4','Male'),(2,'jainam','jainam@gmail.com','2023-11-17',6352037146,'dept 2','1234','1','Male');
+INSERT INTO `employee` VALUES (1,'Parmar Parth K.','parmarparth954@gmail.com','2004-12-06',9313869057,'Education Department, Gujarat','hi123','2','Male',1),(2,'Pokiya Yug D.','yugdpokiya@gmail.com','2005-09-25',9313869057,'Education Department, Gujarat','hi123','2','Male',1),(3,'Soni Devang G.','parmarparth954@gmail.com','2005-11-07',9313869057,'Education Department, Gujarat','hi123','2','Male',1),(4,'Sanghavi Jainam P.','parmarparth954@gmail.com','2005-08-28',9313869057,'Education Department, Gujarat','hi123','2','Male',1),(5,'Tomar Divyang R.','parmarparth954@gmail.com','2005-10-31',9313869057,'Education Department, Gujarat','hi123','2','Male',1),(6,'Prabtani Om Rashminbheai','parmarparth954@gmail.com','2005-10-31',9313869057,'Education Department, Gujarat','dewigfoehf','2','Male',1);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15 17:37:36
+-- Dump completed on 2023-11-25 15:21:35

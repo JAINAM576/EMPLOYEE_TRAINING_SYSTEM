@@ -16,32 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `spipa_training_req`
+-- Table structure for table `attendence`
 --
 
-DROP TABLE IF EXISTS `spipa_training_req`;
+DROP TABLE IF EXISTS `attendence`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `spipa_training_req` (
-  `req_id` int NOT NULL AUTO_INCREMENT,
-  `emp_id` int DEFAULT NULL,
-  `emp_name` varchar(150) DEFAULT NULL,
-  `emp_training_subject` varchar(150) DEFAULT NULL,
-  `emp_training` varchar(150) DEFAULT NULL,
-  `emp_start_date` date DEFAULT NULL,
-  `emp_ending_date` date DEFAULT NULL,
-  `spipa_location` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`req_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `attendence` (
+  `emp_id` int NOT NULL,
+  `emp_name` varchar(50) DEFAULT NULL,
+  `emp_subject` varchar(50) NOT NULL,
+  `emp_training` varchar(20) NOT NULL,
+  `emp_date` varchar(20) NOT NULL DEFAULT '2023-01-01',
+  `pa` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`emp_id`,`emp_subject`,`emp_training`,`emp_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `spipa_training_req`
+-- Dumping data for table `attendence`
 --
 
-LOCK TABLES `spipa_training_req` WRITE;
-/*!40000 ALTER TABLE `spipa_training_req` DISABLE KEYS */;
-/*!40000 ALTER TABLE `spipa_training_req` ENABLE KEYS */;
+LOCK TABLES `attendence` WRITE;
+/*!40000 ALTER TABLE `attendence` DISABLE KEYS */;
+INSERT INTO `attendence` VALUES (1,'Parmar Parth K.','EDP','EDP-t1-2022','2023-11-14','present'),(2,'Pokiya Yug D.','EDP','EDP-t1-2022','2023-11-14','present'),(4,'Sanghavi Jainam P.','EDP','EDP-t1-2022','2023-11-14','absent'),(5,'Tomar Divyang R.','EDP','EDP-t1-2022','2023-11-14','present'),(6,'Prabtani Om Rashminbheai','EDP','EDP-t1-2022','2023-11-14','absent');
+/*!40000 ALTER TABLE `attendence` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
