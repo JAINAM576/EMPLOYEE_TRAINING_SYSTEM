@@ -6,15 +6,18 @@ const nodemailer = require("nodemailer");
 const XLSX = require("xlsx")
 const ExcelJS = require('exceljs');
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+
 
 const app = express();
+
 
 app.use(cors());
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 require('dotenv').config();
+
 
 
 var pool = mysql.createConnection({
@@ -38,10 +41,15 @@ pool.connect(function (err) {
 
 });
 
+
+
+
+
 app.get("/", (req, res) => {
   res.redirect("/employee");
 });
 app.get("/employee/login", (req, res) => {
+
   res.sendFile(__dirname + "/public/pages/employee/login.html");
 });
 app.get("/employee/signin", (req, res) => {
@@ -103,14 +111,18 @@ app.get("/give/quiz", (req, res) => {
 });
 
 
+
+
+
+
 //passing the pass
 let training;
-app.post('/post_trainings_from_cordinator',(req,res)=>{
-training=req.body
-res.status(200).json(1)
+app.post('/post_trainings_from_cordinator', (req, res) => {
+  training = req.body
+  res.status(200).json(1)
 })
-app.get('/get_trainings_from_cordinator',(req,res)=>{
-res.send(training)
+app.get('/get_trainings_from_cordinator', (req, res) => {
+  res.send(training)
 })
 //employee
 app.post("/employee/signin", (req, res) => {
@@ -595,7 +607,6 @@ app.get("/reject/:id", (req, res) => {
                   const mailoptions = {
                     from: "jainamsanghavi008@gmail.com",
                     to: to_mail,
-          
                     html: email,
                     subject: subject,
                   };
@@ -603,13 +614,13 @@ app.get("/reject/:id", (req, res) => {
                     const result = await transporter.sendMail(mailoptions);
                     console.log("success");
                   } catch (error) {
-          
+
                     console.log("error in dept req reject ", error);
                   }
                 }
                 send(
                   email,
-                 '',
+                  '',
                   "Regarding Training Request ",
                   `<h3>Hello ${result[0].emp_name}</h3> 
                  
@@ -751,7 +762,7 @@ app.get('/emp-training-req/:id/:id2', (req, res) => {
 //dept admin
 app.get('/dept-req/:id', (req, res) => {
   const current_dept_name = req.params.id;
-  console.log(current_dept_name,"dep")
+  console.log(current_dept_name, "dep")
   const dept_emp_role = 'operator';
   pool.query('SELECT * FROM dept_req WHERE dept_name=(?) AND dept_emp_role=(?);', [current_dept_name, dept_emp_role], (error, results) => {
     if (error) {
@@ -764,12 +775,12 @@ app.get('/dept-req/:id', (req, res) => {
 });
 app.get('/dept/reject/:id', (req, res) => {
   const dept_req_Id = req.params.id;
-  pool.query('select dept_email,dept_emp_role,dept_name from dept_req where dept_req_id=(?)',[dept_req_Id],(error,result)=>{
+  pool.query('select dept_email,dept_emp_role,dept_name from dept_req where dept_req_id=(?)', [dept_req_Id], (error, result) => {
     if (error) {
       console.error(error);
       res.status(500).send('Error');
     }
-    else{
+    else {
 
       pool.query('DELETE FROM dept_req WHERE dept_req_id=(?);', [dept_req_Id], (error, results) => {
         if (error) {
@@ -787,7 +798,7 @@ app.get('/dept/reject/:id', (req, res) => {
             const mailoptions = {
               from: "jainamsanghavi008@gmail.com",
               to: to_mail,
-    
+
               html: email,
               subject: subject,
             };
@@ -795,13 +806,13 @@ app.get('/dept/reject/:id', (req, res) => {
               const result = await transporter.sendMail(mailoptions);
               console.log("success");
             } catch (error) {
-    
+
               console.log("error in dept req reject ", error);
             }
           }
           send(
             result[0].dept_email,
-           '',
+            '',
             "Regarding Department Request ",
             `<h3>Hello </h3> 
            
@@ -861,7 +872,7 @@ app.get('/dept/accept/:id', (req, res) => {
               const mailoptions = {
                 from: "jainamsanghavi008@gmail.com",
                 to: to_mail,
-      
+
                 html: email,
                 subject: subject,
               };
@@ -869,13 +880,13 @@ app.get('/dept/accept/:id', (req, res) => {
                 const result = await transporter.sendMail(mailoptions);
                 console.log("success");
               } catch (error) {
-      
+
                 console.log("error in dept req reject ", error);
               }
             }
             send(
-              dept.dept_email ,
-             '',
+              dept.dept_email,
+              '',
               "Regarding Department Request ",
               `<h3>Hello </h3> 
              
@@ -1054,39 +1065,39 @@ app.post("/spipa/signin", (req, res) => {
         employeeDetail.email,
         employeeDetail.contact,
         employeeDetail.pass,
-      ],(error,result)=>{
-        if(!error){
-          pool.query("select spipa_emp_id from spipa_emp where spipa_emp_role='cordinator' order by spipa_emp_id desc",(error,result1)=>{
-            if(!error){
+      ], (error, result) => {
+        if (!error) {
+          pool.query("select spipa_emp_id from spipa_emp where spipa_emp_role='cordinator' order by spipa_emp_id desc", (error, result1) => {
+            if (!error) {
 
               async function send(to_mail, message, subject, email) {
                 const transporter = nodemailer.createTransport({
-              service: "gmail",
-              auth: {
-                user: "jainamsanghavi008@gmail.com",
-                pass: "wmcnnvjipuyqawpf",
-              },
-            });
-            const mailoptions = {
-              from: "jainamsanghavi008@gmail.com",
-              to: to_mail,
-    
-              html: email,
-              subject: subject,
-            };
-            try {
-              const result = await transporter.sendMail(mailoptions);
-              console.log("success");
-            } catch (error) {
-    
-              console.log("error in spipa sigin ", error);
-            }
-          }
-          send(
-            email,
-           '',
-            "Regarding Spipa signin ",
-            `<h3>Hello </h3> 
+                  service: "gmail",
+                  auth: {
+                    user: "jainamsanghavi008@gmail.com",
+                    pass: "wmcnnvjipuyqawpf",
+                  },
+                });
+                const mailoptions = {
+                  from: "jainamsanghavi008@gmail.com",
+                  to: to_mail,
+
+                  html: email,
+                  subject: subject,
+                };
+                try {
+                  const result = await transporter.sendMail(mailoptions);
+                  console.log("success");
+                } catch (error) {
+
+                  console.log("error in spipa sigin ", error);
+                }
+              }
+              send(
+                email,
+                '',
+                "Regarding Spipa signin ",
+                `<h3>Hello </h3> 
            
             <hr>
             Your employee id is ${result1[0].spipa_emp_id}.
@@ -1103,11 +1114,11 @@ app.post("/spipa/signin", (req, res) => {
             <hr>
             
             `,
-            );
-          }
-        })
-          }
+              );
+            }
+          })
         }
+      }
     );
     res.sendFile(__dirname + "/public/pages/spipa/cordinator_message.html");
   }
@@ -1183,7 +1194,7 @@ app.get("/emp-reject/:id", (req, res) => {
                   const mailoptions = {
                     from: "jainamsanghavi008@gmail.com",
                     to: to_mail,
-          
+
                     html: email,
                     subject: subject,
                   };
@@ -1191,13 +1202,13 @@ app.get("/emp-reject/:id", (req, res) => {
                     const result = await transporter.sendMail(mailoptions);
                     console.log("success");
                   } catch (error) {
-          
+
                     console.log("error in dept req reject ", error);
                   }
                 }
                 send(
                   email,
-                 '',
+                  '',
                   "Regarding Training Request ",
                   `<h3>Hello ${result[0].emp_name}</h3> 
                  
@@ -1302,7 +1313,7 @@ app.get("/spipa-accept/:id", (req, res) => {
                           const mailoptions = {
                             from: "jainamsanghavi008@gmail.com",
                             to: to_mail,
-                  
+
                             html: email,
                             subject: subject,
                           };
@@ -1310,13 +1321,13 @@ app.get("/spipa-accept/:id", (req, res) => {
                             const result = await transporter.sendMail(mailoptions);
                             console.log("success");
                           } catch (error) {
-                  
+
                             console.log("error in spipa req accept ", error);
                           }
                         }
                         send(
                           email,
-                         '',
+                          '',
                           "Regarding Training Request ",
                           `<h3>Hello ${emp.emp_name}</h3> 
                          
@@ -1375,12 +1386,12 @@ app.get('/spipa-opt-req', (req, res) => {
 });
 app.get('/spipa/reject/:id', (req, res) => {
   const spipa_req_Id = req.params.id;
-  pool.query("select spipa_name,spipa_email,spipa_emp_role FROM spipa_req WHERE spipa_req_id=(?) ",[spipa_req_Id],(error,result)=>{
+  pool.query("select spipa_name,spipa_email,spipa_emp_role FROM spipa_req WHERE spipa_req_id=(?) ", [spipa_req_Id], (error, result) => {
     if (error) {
       console.error(error);
       res.status(500).send('Error');
     }
-    else{
+    else {
 
       pool.query('DELETE FROM spipa_req WHERE spipa_req_id=(?);', [spipa_req_Id], (error, results) => {
         if (error) {
@@ -1398,7 +1409,7 @@ app.get('/spipa/reject/:id', (req, res) => {
             const mailoptions = {
               from: "jainamsanghavi008@gmail.com",
               to: to_mail,
-    
+
               html: email,
               subject: subject,
             };
@@ -1406,13 +1417,13 @@ app.get('/spipa/reject/:id', (req, res) => {
               const result = await transporter.sendMail(mailoptions);
               console.log("success");
             } catch (error) {
-    
+
               console.log("error in dept req reject ", error);
             }
           }
           send(
-            result[0].spipa_email ,
-           '',
+            result[0].spipa_email,
+            '',
             "Regarding Spipa-Operator Request ",
             `<h3>Hello </h3> 
            
@@ -1464,7 +1475,7 @@ app.get('/spipa/accept/:id', (req, res) => {
             pool.query('DELETE FROM spipa_req WHERE spipa_req_id=(?);', [spipa_req_Id], (error, results) => {
               if (error) {
                 console.error(error);
-          
+
               } else {
                 async function send(to_mail, message, subject, email) {
                   const transporter = nodemailer.createTransport({
@@ -1477,7 +1488,7 @@ app.get('/spipa/accept/:id', (req, res) => {
                   const mailoptions = {
                     from: "jainamsanghavi008@gmail.com",
                     to: to_mail,
-          
+
                     html: email,
                     subject: subject,
                   };
@@ -1485,13 +1496,13 @@ app.get('/spipa/accept/:id', (req, res) => {
                     const result = await transporter.sendMail(mailoptions);
                     console.log("success");
                   } catch (error) {
-          
+
                     console.log("error in dept req reject ", error);
                   }
                 }
                 send(
-                  spipa.spipa_email ,
-                 '',
+                  spipa.spipa_email,
+                  '',
                   "Regarding Spipa Request ",
                   `<h3>Hello </h3> 
                  
@@ -1740,10 +1751,10 @@ app.post("/spipa-training-req-subject", (req, res) => {
 
 //download excel from table
 app.get("/excel/emp_exam/:id/:id2", async (req, res) => {
-  const train=req.params.id;
-  const sub=req.params.id2;
+  const train = req.params.id;
+  const sub = req.params.id2;
   try {
-    pool.query('SELECT * FROM  emp_exam_result where emp_training=(?) and emp_subject=(?)',[train,sub], (error, result) => {
+    pool.query('SELECT * FROM  emp_exam_result where emp_training=(?) and emp_subject=(?)', [train, sub], (error, result) => {
       if (error) {
         console.error(error);
         res.status(500).json(0);
@@ -1836,7 +1847,27 @@ app.get('/employee/status-2/:id', (req, res) => {
     }
   });
 });
-
+app.get('/status/reject/:id/:id2', (req, res) => {
+  
+  pool.query('delete from emp_training_req where req_id=(?) and emp_id=(?)',[req.params.id, req.params.id2], (error, result) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json(0);
+    } else {
+      res.status(200).json(result);
+    }
+  });
+});
+app.get('/status/reject2/:id/:id2', (req, res) => {
+  pool.query('delete from spipa_training_req where req_id=(?) and emp_id=(?)',[req.params.id, req.params.id2], (error, result) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json(0);
+    } else {
+      res.status(200).json(result);
+    }
+  });
+});
 //for spipa dashboard
 app.get('/dashboard/training-info', (req, res) => {
   pool.query('select * from training_info', (error, result) => {
@@ -1930,111 +1961,111 @@ app.post('/quiz/add-quiz', (req, res) => {
 app.get("/quiz/exam_name", (req, res) => {
 
   pool.query('SELECT exam_name FROM exam_info', (error, results) => {
-      if (error) {
-        console.error(error);
-      } else {
-          res.status(200).json(results);
-      }
-    });
-
-});
-app.post("/quiz/login", (req, res) => {
-  pool.query('SELECT exam_sub,exam_training FROM exam_info where exam_name=(?)',[req.body.exam], (error, results) => {
     if (error) {
       console.error(error);
     } else {
-     
+      res.status(200).json(results);
+    }
+  });
+
+});
+app.post("/quiz/login", (req, res) => {
+  pool.query('SELECT exam_sub,exam_training FROM exam_info where exam_name=(?)', [req.body.exam], (error, results) => {
+    if (error) {
+      console.error(error);
+    } else {
+
       pool.query('SELECT * FROM emp_training where emp_id=(?) and emp_training=(?) and emp_training_subject=(?)'
-      ,[req.body.user, results[0].exam_training,results[0].exam_sub], (error2, results2) => {
-        if (error2) {
-          console.error(error2);
-        } else {
-            if(results2[0]){
+        , [req.body.user, results[0].exam_training, results[0].exam_sub], (error2, results2) => {
+          if (error2) {
+            console.error(error2);
+          } else {
+            if (results2[0]) {
               res.status(200).json(1);
             }
-            else{
+            else {
               res.status(200).json(0);
             }
-        }
-      });
+          }
+        });
     }
   });
 });
 app.get("/quiz/exam-info/:id", (req, res) => {
-  const exam=req.params.id;
-  pool.query('SELECT * FROM exam_info where exam_name=(?)',[exam], (error, results) => {
+  const exam = req.params.id;
+  pool.query('SELECT * FROM exam_info where exam_name=(?)', [exam], (error, results) => {
     if (error) {
       console.error(error);
     } else {
-        res.status(200).json(results);
+      res.status(200).json(results);
     }
   });
 });
 app.get("/quiz/questions/:id", (req, res) => {
-  const exam=req.params.id;
-  pool.query('SELECT exam_name, que_no, que_statement, que_option_1, que_option_2, que_option_3, que_option_4, marks FROM exam_que where exam_name=(?)',[exam], (error, results) => {
+  const exam = req.params.id;
+  pool.query('SELECT exam_name, que_no, que_statement, que_option_1, que_option_2, que_option_3, que_option_4, marks FROM exam_que where exam_name=(?)', [exam], (error, results) => {
     if (error) {
       console.error(error);
     } else {
-        res.status(200).json(results);
+      res.status(200).json(results);
     }
   });
 });
 app.post("/quiz/submit", (req, res) => {
-  if(!req.body.user){
+  if (!req.body.user) {
     res.status(200).json(3)
   }
-  else{
-    pool.query('SELECT * FROM exam_info where exam_name=(?)',[req.body.exam], (error, results) => {
+  else {
+    pool.query('SELECT * FROM exam_info where exam_name=(?)', [req.body.exam], (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).json(0);
       } else {
-          var emp_id=req.body.user,out_of = results[0].total_marks, emp_subject = results[0].exam_sub,
-          emp_training = results[0].exam_training,marks=0;
-          pool.query('SELECT correct,marks FROM exam_que where exam_name=(?)',[req.body.exam], (error2, results2) => {
-            if (error2) {
-              console.error(error2);
-              res.status(500).json(0);
-            } else {
-              console.log("correct:",results2)
-              console.log("que_ans:",req.body.que_ans)
-              for (let x = 0; x < results2.length; x++) {
-                if(results2[x].correct==req.body.que_ans[x]){
-                  marks+=results2[x].marks
-                }
+        var emp_id = req.body.user, out_of = results[0].total_marks, emp_subject = results[0].exam_sub,
+          emp_training = results[0].exam_training, marks = 0;
+        pool.query('SELECT correct,marks FROM exam_que where exam_name=(?)', [req.body.exam], (error2, results2) => {
+          if (error2) {
+            console.error(error2);
+            res.status(500).json(0);
+          } else {
+            console.log("correct:", results2)
+            console.log("que_ans:", req.body.que_ans)
+            for (let x = 0; x < results2.length; x++) {
+              if (results2[x].correct == req.body.que_ans[x]) {
+                marks += results2[x].marks
               }
-              //insert evrything
-              pool.query('insert into emp_exam_result (emp_id, out_of,emp_subject,emp_training, marks) values((?),(?),(?),(?),(?));'
-            , [emp_id, out_of,emp_subject,emp_training, marks], (error3, result3) => {
-              if (error3) {
-                res.status(200).json(2)
-              }
-              else{
-                res.status(200).json(1);
-              }
-            });
             }
-          });
+            //insert evrything
+            pool.query('insert into emp_exam_result (emp_id, out_of,emp_subject,emp_training, marks) values((?),(?),(?),(?),(?));'
+              , [emp_id, out_of, emp_subject, emp_training, marks], (error3, result3) => {
+                if (error3) {
+                  res.status(200).json(2)
+                }
+                else {
+                  res.status(200).json(1);
+                }
+              });
+          }
+        });
       }
     });
   }
-  
+
 });
 
 
 //for attendance 
 
 app.get("/attendence/:training/:subject", (req, res) => {
-  let train=req.params.training
-  let sub=req.params.subject
-  console.log(train,sub,"in attendance")
+  let train = req.params.training
+  let sub = req.params.subject
+
   pool.query(
-    'select * from employee inner join emp_training on employee.emp_id = emp_training.emp_id where emp_training = (?) and emp_training_subject = (?) ',[train,sub],
+    'select * from employee inner join emp_training on employee.emp_id = emp_training.emp_id where emp_training = (?) and emp_training_subject = (?) ', [train, sub],
     (error, results) => {
       if (error) {
         console.error(error);
-        res.status(500).send("Error retrieving company");
+        res.status(500).send("Error retrieving ");
       } else {
         res.status(200).json(results);
       }
@@ -2042,6 +2073,22 @@ app.get("/attendence/:training/:subject", (req, res) => {
   );
 });
 
+app.get("/attendence-date/:training/:subject", (req, res) => {
+  let train = req.params.training
+  let sub = req.params.subject
+  
+  pool.query(
+    'select start_date,end_date from training_programm where training=(?) and training_subject=(?)', [train, sub],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving ");
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
 
 app.get("/attendence/present/:id/:name/:utc/:subject/:training", (req, res) => {
   const emp_id = req.params.id;
@@ -2089,24 +2136,24 @@ app.get("/attendence/absent/:id/:name/:utc/:subject/:training", (req, res) => {
 
 
 app.get('/attendence/excel/:id/:id2/:id3', (req, res) => {
-  const train=req.params.id;
-  const sub=req.params.id2;
-  const date=req.params.id3;
-  console.log(train+sub+date)
+  const train = req.params.id;
+  const sub = req.params.id2;
+  const date = req.params.id3;
+  console.log(train + sub + date)
   try {
-    pool.query('SELECT * FROM attendence where emp_training=(?) and emp_subject=(?) and emp_date=(?)',[train,sub,date], (error, result) => {
+    pool.query('SELECT * FROM attendence where emp_training=(?) and emp_subject=(?) and emp_date=(?)', [train, sub, date], (error, result) => {
       if (error) {
         console.error(error);
         res.status(200).json(0);
       } else {
-        
-        const heading = [["Employee_id", "Name" ,"Training", "Subject", "Date", "P/A"]]
+
+        const heading = [["Employee_id", "Name", "Training", "Subject", "Date", "P/A"]]
         const workbook = XLSX.utils.book_new()
         const worksheet = XLSX.utils.json_to_sheet(result)
         XLSX.utils.sheet_add_aoa(worksheet, heading)
         XLSX.utils.book_append_sheet(workbook, worksheet, 'employee')
         const buffer = XLSX.write(workbook, { booktype: 'xlsx', type: 'buffer' })
-        res.attachment("result.xlsx")
+        res.attachment("attendence.xlsx")
         return res.send(buffer)
       }
     });
@@ -2114,7 +2161,7 @@ app.get('/attendence/excel/:id/:id2/:id3', (req, res) => {
     console.log(error)
   }
 
-  });
+});
 
 
 

@@ -15,6 +15,8 @@ function getCookie(cname) {
     return "";
 }
 const user=getCookie("user");
+const pass=getCookie("pass");
+
 const reqBody = {
     user: getCookie("user").length,
 };
@@ -34,6 +36,7 @@ $.ajax({
         window.location.assign("/employee/login")
     }
 });
+
 //emp training table
 $.get(`./emp-training/${user}`, (data, status) => {
 
@@ -44,6 +47,7 @@ $.get(`./emp-training/${user}`, (data, status) => {
         columns: [
             { data: 'emp_id', title: 'Id' },
             { data: 'emp_training', title: 'Training Name' },
+            { data: 'emp_training_subject', title: 'Subject Name' },
             { data: 'emp_start_date', title: 'Start' },
             { data: 'emp_ending_date', title: 'end' }
         ]
@@ -76,10 +80,11 @@ $.get(`/employee/status-1/${user}`, (data, status)=>{
         <th>Training</th>
         <th>Subject</th>
         <th>Status</th>
+        <th>Reject</th>
       </tr>`);
         for (let x = 0; x < data.length; x++) {
             $('#status-table').append(
-                "<tr><td>"+data[x].req_id+"</td><td>"+data[x].emp_training+"</td><td>"+data[x].emp_training_subject+"</td><td>Department</td></tr>"
+                `<tr><td>`+data[x].req_id+`</td><td>`+data[x].emp_training+`</td><td>`+data[x].emp_training_subject+`</td><td>Department</td></td><td><button class='btn btn-danger btnDelete' onclick="reject(` + data[x].req_id + `)">Not Apply</button></td></tr>`
             );
         }
     }   
@@ -92,11 +97,28 @@ $.get(`/employee/status-2/${user}`, (data, status)=>{
         <th>Training</th>
         <th>Subject</th>
         <th>Status</th>
+        <th>Reject</th>
       </tr>`);
         for (let x = 0; x < data.length; x++) {
             $('#status-table').append(
-                "<tr><td>"+data[x].req_id+"</td><td>"+data[x].emp_training+"</td><td>"+data[x].emp_training_subject+"</td><td>Spipa</td></tr>"
-            );
+                `<tr><td>`+data[x].req_id+`</td><td>`+data[x].emp_training+`</td><td>`+data[x].emp_training_subject+`</td><td>Spipa</td></td><td><button class='btn btn-danger btnDelete' onclick="reject2(` + data[x].req_id + `)">Not Apply</button></td></tr>`
+         );
         }
     }   
+});
+function reject(req_id) { 
+    $.get(`/status/reject/${req_id}/${user}`, (data, status) => {
+        
+    });
+}
+function reject2(req_id) { 
+    $.get(`/status/reject2/${req_id}/${user}`, (data, status) => {
+        
+    });
+}
+$(document).ready(function () {
+    $("#status-table").on('click', '.btnDelete', function () {
+        $(this).closest('tr').remove();
+        console.log($(this));
+    });
 });

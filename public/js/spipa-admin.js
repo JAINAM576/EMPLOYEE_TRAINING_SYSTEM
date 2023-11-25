@@ -15,6 +15,7 @@ function getCookie(cname) {
     return "";
 }
 const userspipa=getCookie("userspipa");
+const passspipa=getCookie("passspipa");
 const rolespipa=getCookie("rolespipa");
 const reqBody = {
     userspipa: getCookie("userspipa").length,
@@ -31,6 +32,7 @@ $.ajax({
         console.log(data)
         if (data==2) {
             alert("welcome " + getCookie("userspipa"))
+            
         }
         else{
             window.location.assign("/spipa/login")
@@ -183,6 +185,11 @@ $(document).ready(function () {
     });
 });
 //add training
+function changed(){
+    const start_date = $("#start_date").val();
+    document.getElementById("end_date").setAttribute("min",`${start_date}`)
+    console.log(start_date)
+}
 $(document).ready(function () {
     $("#btn-add-training").click(function () {
 

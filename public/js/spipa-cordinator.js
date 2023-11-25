@@ -15,6 +15,7 @@ function getCookie(cname) {
     return "";
 }
 const userspipa = getCookie("userspipa");
+const passspipa=getCookie("passspipa");
 const rolespipa = getCookie("rolespipa");
 const reqBody = {
     userspipa: getCookie("userspipa").length,
@@ -551,8 +552,15 @@ $(document).ready(function(){
 $('#attendance_sub').on('change',function(){
  training1=$('#attendance_training').val()
  subject1=$('#attendance_sub').val()
+ $.get(`/attendence-date/${training1}/${subject1}`, (data, status) => {
+    var max=data[0].end_date;
+    var min=data[0].start_date;
+    console.log("1.  "+min+"  2. "+max)
+    document.getElementById("attendenceDate").setAttribute("max",`${max}`)
+    document.getElementById("attendenceDate").setAttribute("min",`${min}`)
+ });
 $.get(`/attendence/${training1}/${subject1}`, (data, status) => {
-  
+    
     $("#training-req-table").DataTable({
         destroy:true,
       data: data,
@@ -599,6 +607,7 @@ function check(){
                 absent(data[i].emp_id,data[i].emp_name,utc,data[i].emp_training_subject,data[i].emp_training)
             }
         }
+        
         window.open(`/attendence/excel/${training1}/${subject1}/${utc}`, '_blank');
     });
 
@@ -613,6 +622,9 @@ function present(id, name, utc, subject, training) {
         if(data==0){
             alert("You have already selected this date")
         }
+        else{
+            alert("attendence added succsessfully ")
+        }
     }
   );
   
@@ -623,6 +635,9 @@ function absent(id, name, utc, subject, training) {
     (data, status) => {
         if(data==0){
             alert("You have already selected this date")
+        }
+        else{
+            alert("attendence added succsessfully ")
         }
     }
   );

@@ -15,6 +15,7 @@ function getCookie(cname) {
     return "";
 }
 const userdept=getCookie("userdept");
+const passdept=getCookie("passdept");
 const roledept=getCookie("roledept");
 const reqBody = {
     userdept: getCookie("userdept").length,
@@ -30,6 +31,7 @@ $.ajax({
     success: function (data) {
         if (data==2) {
             alert("welcome " + getCookie("userdept"))
+            
         }
         else{
             window.location.assign("/department/login")
