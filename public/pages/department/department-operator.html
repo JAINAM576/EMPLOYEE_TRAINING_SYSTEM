@@ -27,16 +27,16 @@
             <div class="ssip-logo"></div>
             <div id="options" class="row g-0">
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger "
+                    <button type="button" class="btn btn-outline-danger menu-btn "
                     onClick="document.getElementById('see-req').scrollIntoView();">See Request</button>
                 </div>
                 <div class="col-12">
-                    <button type="button"  class="btn btn-outline-danger" onClick="document.getElementById('all-emp').scrollIntoView();">
+                    <button type="button"  class="btn btn-outline-danger menu-btn" onClick="document.getElementById('all-emp').scrollIntoView();">
                         All training
                     </button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger" onClick="document.getElementById('exam-result').scrollIntoView();">
+                    <button type="button" class="btn btn-outline-danger menu-btn" onClick="document.getElementById('exam-result').scrollIntoView();">
                         Exam results
                     </button>
                 </div>
@@ -104,34 +104,62 @@
                 </div>
             </nav>
 
-            <p class="ssip-title">
-                See Request:
-            </p>
+            <br>
 
-            <div style="padding-left: 30px;" id="see-req" class="col-12">
+            <div class="container bootstrap snippets bootdey">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="mini-stat clearfix bg-facebook rounded">
+                            <div class="mini-stat-info">
+                                <a style="text-decoration: none;" href="#see-req"><span class="pending_count">0</span></a>
+                               Pending Requests
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="mini-stat clearfix bg-twitter rounded">
+                            <div class="mini-stat-info">
+                                <a style="text-decoration: none;" href="#all-emp"><span class="ctrt_count">0</span></a>
+                               Employees training currently
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="mini-stat clearfix bg-googleplus rounded">
+                           
+                            <div class="mini-stat-info ">
+                               <a style="text-decoration: none;" href="#exam-result"> <span class="exam_count">0</span></a>
+                                Exam details
+                            </div>
+                        </div>
+                    </div>
+                   
+            </div>
+
+
+            <div id="see-req" class="col-12">
                 <p class="ssip-sub-title">
-                    ->All pending request
+                    Pending Requests :
                 </p>
                 <table id="training-req-table" class="table table-striped mt-5 " >
                 </table>
             </div>
-
-            <p class="ssip-title">
-                Department Data:
-            </p>
-
-
+            <br>
+            <hr>
+            <br>
             <div id="all-emp" class="col-12">
                 <p class="ssip-sub-title">
-                    ->All Training Employees
+                Employees training currently :
                 </p>
                 <table id="all-employee-table" class="table table-striped mt-5">
                 </table>
             </div>
-
+            <br>
+            <hr>
+            <br>
             <div id="exam-result" class="col-12">
                 <p class="ssip-sub-title">
-                    ->Exam details
+                    Exam details :
                 </p>
                 <table id="all-marks-table" class="table table-striped mt-5">
                 </table>

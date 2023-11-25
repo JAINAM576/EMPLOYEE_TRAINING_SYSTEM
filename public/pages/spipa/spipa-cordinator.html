@@ -63,7 +63,15 @@
         border-radius:7px ;
         transform: scale(1.1px);
     }
-  
+    #sel1,#sel2{
+        width: 30%;
+    }
+    @media screen and (max-width:1000px) {
+        #sel1,#sel2{
+        width: 90%;
+        }
+    }
+
 </style>
 
 <body>
@@ -73,9 +81,8 @@
             <div class="ssip-logo"></div>
             <div id="options" class="row g-0">
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger result_op "
-                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp">See
-                        Employees</button>
+                    <button type="button" class="btn menu-btn btn-outline-danger result_op "
+                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp">Candidate Info</button>
                 </div>
 
                 <div class="col-12">
@@ -84,7 +91,7 @@
                         Add Result
                     </button> -->
 
-                    <select class="btn result_op" id="exam_type" name="spipa_name">
+                    <select class="btn menu-btn result_op" id="exam_type" name="spipa_name">
                         <option selected value="-1"> Add Result</option>
                         <option value="online"> Online</option>
                         <option value="offline"> Offline</option>
@@ -93,19 +100,19 @@
 
                 </div>
                 <div class="col-12 keep">
-                    <button type="button" class="btn btn-outline-danger result_op" data-bs-toggle="modal"
+                    <button type="button" class="btn menu-btn btn-outline-danger result_op" data-bs-toggle="modal"
                         data-bs-target="#add-info">
                         Add info
                     </button>
                 </div>
                 <div class="col-12 ">
-                    <button type="button" class="btn btn-outline-danger result_op" id="check_result" >
-                        Add Quiz
+                    <button type="button" class="btn menu-btn btn-outline-danger result_op" id="check_result" >
+                        Add Exam
                     </button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger result_op "
-                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp2">Add Attendence</button>
+                    <button type="button" class="btn menu-btn btn-outline-danger result_op "
+                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp2"> Attendence</button>
                 </div>
             </div>
 
@@ -159,8 +166,7 @@
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item  coloring" id="s_e">
                                 <button type="button" class="btn_in result_op"
-                                onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp1">See
-                                Employees</button>
+                                onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp1">Candidate info</button>
                             </li>
                             <li class="nav-item">
                                 <select class="result_op btn_in" id="exam_type1" name="spipa_name">
@@ -180,14 +186,14 @@
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="btn_in result_op" id="check_result1">
-                                    Add Quiz
+                                    Add Exam
                                 </button>
             
                             </li>
                             <li class="nav-item">
                          
                                     <button type="button" class="btn_in result_op "
-                                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp3">Add Attendence</button>
+                                        onClick="document.getElementById('see-req').scrollIntoView();" id="see_emp3"> Attendence</button>
                                 
             
                             </li>
@@ -200,17 +206,18 @@
 
 
             <p class="ssip-title" id="listing">
-                Employee list :
+                Candidate List :
 
             </p>
             <div class="form-group">
                 <label for="sel1" class="form-label">Training :</label>
-                <select class="form-select form-control" id="sel1" name="spipa_name">
+                <select class="form-select form-control" id="sel1" name="spipa_name" >
                     <option selected value="-1">Select Training</option>
 
                 </select>
             </div>
-            
+            <br>
+                        
             <div id="see-req" style="padding-left: 30px;" class="col-12">
 
                 <table id="dept-req-table" class="table table-striped mt-5">
@@ -226,13 +233,14 @@
                     <button class="btn btn-primary" id="submit_btn">Submit</button>
                 </div>
             </div>
-
-
+            <br>
+            <hr>
+            <br>
             <div style="padding-left: 30px;" id="see-req" class="col-12">
                 <p class="ssip-sub-title">
-                    ->Attendence
+                    Attendence :
                 </p>
-                <div class="form-group">
+                <div class="form-group" >
                     <label for="attendance_training" class="form-label">Training :</label>
                     <select class="form-select form-control" id="attendance_training" name="spipa_name">
                         <option selected value="-1">Select Training</option>

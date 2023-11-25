@@ -14,7 +14,7 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+    background:#eee;
 }
 #admin-options{
     box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -37,6 +37,7 @@ body{
     padding: 0;
     position: relative;
     z-index: 1;
+    background-color: var(--ssip-back);
 }
 #nav-laptop{
     background-color: var(--ssip-primary) !important;
@@ -66,7 +67,8 @@ body{
     color: #ffffff;
 }
 .ssip-title{
-    font-size: 3rem;
+    font-size: 2.5rem;
+    color: black;
     margin: 20px 40px;
 }
 .ssip-sub-title{
@@ -139,6 +141,90 @@ table{
     left: -20px;
     background-color: var(--ssip-secondary);
 }
+
+.menu-btn{
+    width: 200px !important;
+}
+
+.user-title{
+    color: white;
+    margin-top: 2.5%;
+    transform: translateX(-260%);
+}
+
+
+.rounded {
+  -webkit-border-radius: 3px !important;
+  -moz-border-radius: 3px !important;
+  border-radius: 3px !important;
+}
+
+.mini-stat {
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.mini-stat-icon {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  line-height: 60px;
+  text-align: center;
+  font-size: 30px;
+  background: none repeat scroll 0% 0% #EEE;
+  border-radius: 100%;
+  float: left;
+  margin-right: 10px;
+  color: #FFF;
+}
+
+.mini-stat-info {
+  font-size: 12px;
+  padding-top: 2px;
+}
+
+span, p {
+  color: white;
+}
+
+.mini-stat-info span {
+  display: block;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-top: 7px;
+}
+
+/* ================ colors =====================*/
+.bg-facebook {
+  background-color: #3b5998 !important;
+  border: 1px solid #3b5998;
+  color: white;
+}
+
+.bg-twitter {
+  background-color: #00a0d1 !important;
+  border: 1px solid #00a0d1;
+  color: white;
+}
+
+.bg-googleplus {
+  background-color: #db4a39 !important;
+  border: 1px solid #db4a39;
+  color: white;
+}
+
+
+.bg-bitbucket {
+  background-color: #205081 !important;
+  border: 1px solid #205081;
+  color: white;
+}
+
+
+
+
+
 @media screen and (max-width:1000px) {
     body{
         padding-top: 70px;

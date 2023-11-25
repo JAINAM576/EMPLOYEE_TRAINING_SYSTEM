@@ -20,6 +20,8 @@ const pass=getCookie("pass");
 const reqBody = {
     user: getCookie("user").length,
 };
+
+
 //check profile
 $.ajax({
     type: 'post',
@@ -79,7 +81,7 @@ $.get(`/employee/status-1/${user}`, (data, status)=>{
         <th>Req Id</th>
         <th>Training</th>
         <th>Subject</th>
-        <th>Status</th>
+        <th>Req. With</th>
         <th>Reject</th>
       </tr>`);
         for (let x = 0; x < data.length; x++) {
@@ -96,7 +98,7 @@ $.get(`/employee/status-2/${user}`, (data, status)=>{
         <th>Req Id</th>
         <th>Training</th>
         <th>Subject</th>
-        <th>Status</th>
+        <th>Req. With</th>
         <th>Reject</th>
       </tr>`);
         for (let x = 0; x < data.length; x++) {
@@ -122,3 +124,28 @@ $(document).ready(function () {
         console.log($(this));
     });
 });
+
+$.get(`/employee/${user}`, (data, status) => {
+    if (data) {
+      var name = data[0].emp_name;
+      $(".user-title").html(" Welcome : " + name);
+    }
+  });
+  
+  $.get(`/employee/training_count/${user}`, (data, status) => {
+    if (data) {
+      $(".training_count").html(data[0].training_count);
+    }
+  });
+  
+  $.get(`/employee/exam_count/${user}`, (data, status) => {
+      if (data) {
+        $(".exam_count").html(data[0].exam_count);
+      }
+    });
+    
+    $.get(`/employee/applied_count/${user}`, (data, status) => {
+      if (data) {
+        $(".applied_count").html(data[0].applied_count);
+      }
+    });

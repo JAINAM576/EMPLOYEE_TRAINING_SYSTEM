@@ -150,3 +150,24 @@ $(document).ready(function () {
         console.log($(this));
     });
 });
+//dept operator
+$.get(
+    `/emp-training-req/pending_count/${userdept}/${deptname}`,
+    (data, status) => {
+      if (data) {
+        $(".pending_count").html(data[0].pending_count);
+      }
+    }
+  );
+  
+  $.get(`/all/emp-training/ctrt_count/${userdept}`, (data, status) => {
+    if (data) {
+      $(".ctrt_count").html(data[0].ctrt_count);
+    }
+  });
+  
+  $.get(`/all/emp-exam/exam_count/${userdept}`, (data, status) => {
+    if (data) {
+      $(".exam_count").html(data[0].exam_count);
+    }
+  });

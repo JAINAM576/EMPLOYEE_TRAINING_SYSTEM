@@ -33,30 +33,31 @@
             <div class="ssip-logo"></div>
             <div id="options" class="row g-0">
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger "
-                    onClick="document.getElementById('info').scrollIntoView();">Information</button>
+                    <button type="button" class="btn menu-btn btn-outline-danger "
+                    onClick="document.getElementById('info').scrollIntoView();">Dashboard</button>
 
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger result_op" onclick="window.location='/employee/req'">
-                        Apply for training
+                    <button type="button" class="btn menu-btn btn-outline-danger result_op" onclick="window.location='/employee/req'">
+                        Apply For Training
                       </button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger result_op" onclick="window.location='/login/quiz'">
+                    <button type="button" class="btn menu-btn btn-outline-danger result_op" onclick="window.location='/login/quiz'">
                         Online Exam
                       </button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger result_op" onclick="window.location='https://quiz-trainning.netlify.app/'">Quiz</button>
+                    <button type="button" class="btn menu-btn btn-outline-danger result_op" onclick="window.location='https://quiz-trainning.netlify.app/'">Training Need Test</button>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-outline-danger result_op" onclick="window.location='/spipa/result'">Exam Result</button>
+                    <button type="button" class="btn menu-btn btn-outline-danger result_op" onclick="window.location='/spipa/result'">Exam Result</button>
                 </div>
 
         </section>
         <section class="col-lg-9 col-md-12 col-sm-12 offset-lg-3" id="admin-panel">
             <nav id="nav-laptop">
+                <h2 class="user-title"></h1>
                 <ul style="justify-self: center;align-self: center;">
                     <li>
                         <button style="background-color: var(--ssip-secondary);border-radius: 100px;" type="button"
@@ -114,7 +115,7 @@
                             </li>
                             <li class="nav-item">
                                 <button type="button" class="btn btn-light " onclick="window.location='/employee/req'">
-                                    Apply for training
+                                    Apply For Training
                                   </button>
                             </li>
                             <li class="nav-item">
@@ -125,22 +126,56 @@
                 </div>
             </nav>
 
-            <p class="ssip-title">
-                Information:
+            <br>
+
+            <div class="container bootstrap snippets bootdey">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="mini-stat clearfix bg-facebook rounded">
+                            <div class="mini-stat-info">
+                                <a style="text-decoration: none;" href="#info"><span class="training_count"></span></a>
+                               Training Taken
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="mini-stat clearfix bg-twitter rounded">
+                            <div class="mini-stat-info">
+                                <a style="text-decoration: none;" href="#exam"><span class="exam_count"></span></a>
+                               Exam given
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="mini-stat clearfix bg-googleplus rounded">
+                           
+                            <div class="mini-stat-info ">
+                               <a style="text-decoration: none;" href="#status"> <span class="applied_count"></span></a>
+                                Applied Trainings
+                            </div>
+                        </div>
+                    </div>
+                   
+            </div>
+
+            <p class="ssip-title h2">
+                Dashboard
+                
             </p>
+            <hr>
 
             <div id="info" class="col-12">
                 <p class="ssip-sub-title">
-                    ->Total training
+                    Opted Trainings :
                 </p>
                 <table id="training-table" class="table table-striped mt-5">
                 </table>
             </div>
 
 
-            <div class="col-12">
+            <div id="exam" class="col-12">
                 <p class="ssip-sub-title">
-                    ->Exam
+                Exam :
                 </p>
                 <table  id="marks-table" class="table table-striped mt-5">
                 </table>

@@ -30,7 +30,7 @@ $.ajax({
     traditional: true,
     success: function (data) {
         console.log(data)
-        if (data == 2) {
+        if (data == 3) {
             alert("welcome " + getCookie("userspipa"))
         }
         else {
@@ -360,8 +360,6 @@ $(document).ready(function () {
             if ($(`#${element}`).val().length == 0 && !check) {
                 alert("Fill all employee marks")
                 check = true
-
-
             }
             if (!check) {
                 console.log($(`#${element}`).val(), typeof ($(`#${element}`).val()))

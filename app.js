@@ -110,8 +110,20 @@ app.get("/give/quiz", (req, res) => {
   res.sendFile(__dirname + "/public/pages/quiz/exam.html");
 });
 
-
-
+//deptname
+app.get("/emp-dept-name", (req, res) => {
+  pool.query(
+    "SELECT * FROM department_info ",
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving ");
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
 
 
 
@@ -207,6 +219,9 @@ app.post("/employee/login", (req, res) => {
       if (results && results[0]) {
         if (results[0].emp_password == userPassword) {
           res.status(200).json(1);
+        }
+        else{
+          res.status(200).json(0);
         }
       }
       else {
@@ -370,6 +385,9 @@ app.post("/department/login", (req, res) => {
           if (results[0].dept_password == userPassword) {
             res.status(200).json(1);
           }
+          else{
+            res.status(200).json(0);
+          }
         }
         else {
           res.status(200).json(0);
@@ -463,6 +481,7 @@ app.post("/employee/subject", (req, res) => {
           console.error(error)
         }
         if (!error) {
+          console.log(result)
           res.send(result)
         }
       })
@@ -981,7 +1000,7 @@ app.post("/spipa/test", (req, res) => {
       res.status(200).json(2);
     }
     if (rolespipa == 'cordinator') {
-      res.status(200).json(2);
+      res.status(200).json(3);
     }
   }
 });
@@ -1002,6 +1021,9 @@ app.post("/spipa/login", (req, res) => {
         if (results && results[0]) {
           if (results[0].spipa_password == userPassword) {
             res.status(200).json(1);
+          }
+          else{
+            res.status(200).json(0);
           }
         }
         else {
@@ -1688,10 +1710,10 @@ app.post('/spipa-training-req/:id', (req, res) => {
 })
 
 app.post('/adding_marks', (req, res) => {
-  let { mark, emp_id } = req.body
+  let { mark, emp_id ,training,subject} = req.body
   mark = Number(mark)
   let de = 100
-  pool.query("select emp_training,emp_training_subject from emp_training where emp_id=(?)", [emp_id], (error, result) => {
+  pool.query("select emp_training,emp_training_subject from emp_training where emp_id=(?) and emp_training=(?) and emp_training_subject=(?)", [emp_id,training,subject], (error, result) => {
     console.log(result, "result")
     if (!error) {
       result.forEach(element => {
@@ -1709,6 +1731,7 @@ app.post('/adding_marks', (req, res) => {
     }
   })
 })
+
 
 
 
@@ -2168,4 +2191,117 @@ app.get('/attendence/excel/:id/:id2/:id3', (req, res) => {
 const PORT = 3000 || process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server started on ${PORT} `);
+});
+//new get req
+app.get("/employee/:user", (req, res) => {
+  const user = req.params.user;
+  pool.query(
+    "SELECT  emp_name from employee where emp_id = (?)",
+    [user],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving company");
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+app.get("/employee/training_count/:user", (req, res) => {
+  const user = req.params.user;
+  pool.query(
+    "SELECT count(emp_training) as training_count from emp_training where emp_id = (?)",
+    [user],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving company");
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+app.get("/employee/exam_count/:user", (req, res) => {
+  const user = req.params.user;
+  pool.query(
+    "SELECT count(emp_training) as exam_count from emp_exam_result where emp_id = (?)",
+    [user],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving company");
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+app.get("/employee/applied_count/:user", (req, res) => {
+  const user = req.params.user;
+  pool.query(
+    "SELECT count(emp_name) as applied_count from emp_training_req where emp_id = (?)",
+    [user],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving company");
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+//dept operator
+app.get("/all/emp-training/ctrt_count/:id", (req, res) => {
+  pool.query("SELECT * FROM emp_training", (error, results) => {
+    const current_user = req.params.id;
+    pool.query(
+      "SELECT count(emp_training.emp_id) as ctrt_count from emp_training inner join (SELECT emp_id FROM employee where emp_operator=(?) and status=1) e1 on emp_training.emp_id=e1.emp_id",
+      [current_user],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          res.status(500).send("Error retrieving company");
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
+});
+app.get("/all/emp-exam/exam_count/:id", (req, res) => {
+  const current_user = req.params.id;
+  pool.query(
+    "SELECT count(emp_exam_result.emp_id) FROM emp_exam_result inner join (SELECT emp_id FROM employee where emp_operator=(?)) e1 on emp_exam_result.emp_id=e1.emp_id",
+    [current_user],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving company");
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+app.get("/emp-training-req/pending_count/:id/:id2", (req, res) => {
+  const current_user = req.params.id;
+  const dept_name = req.params.id2;
+  pool.query(
+    "SELECT count(emp_training_req.emp_id) as pending_count from emp_training_req inner join (SELECT emp_id FROM employee where emp_operator=(?) and emp_dept_name=(?)) e1 on emp_training_req.emp_id=e1.emp_id",
+    [current_user, dept_name],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send("Error retrieving company");
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
 });
